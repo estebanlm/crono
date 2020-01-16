@@ -13,7 +13,7 @@ CrDevelopmentPaths class >> isActive [
 { #category : #accessing }
 CrDevelopmentPaths >> repositoryDir [
 
-	^ (IceRepository registry detect: [ :each | each name = 'worklog' ]) location
+	^ (IceRepository registry detect: [ :each | each name = 'crono' ]) location
 ]
 
 { #category : #accessing }
