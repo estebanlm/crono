@@ -33,6 +33,9 @@ CrTodoAddNewCronoCommand class >> defaultShortcut [
 
 { #category : #executing }
 CrTodoAddNewCronoCommand >> execute [
+	| dialog |
 	
-	CrCronoDialog new openDialogWithSpecParent: context window
+	dialog := CrCronoDialog new openDialogWithSpecParent: context window.
+	dialog isOk ifFalse: [ ^ self ].
+	context window notify: (SpNotification newInfo: 'You work, therefore you are.')
 ]

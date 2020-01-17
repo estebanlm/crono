@@ -114,7 +114,7 @@ CrTodoListTaskSummaryPanel >> updatePresenter [
 		listLabel label: task listName ].
 	task hasNotes 
 		ifTrue: [ noteMarkerImage image: (self application iconNamed: #markNote) ]
-		ifFalse: [ noteMarkerImage image: nil ].
+		ifFalse: [ noteMarkerImage image: (self application iconNamed: #blank) ].
 	(self showsFocus and: [ task isFocused ])
 		ifTrue: [ focusMarkerImage image: (self application iconNamed: #markFocus) ]
 		ifFalse: [ focusMarkerImage image: nil ] 

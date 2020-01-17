@@ -37,7 +37,8 @@ CrIconProvider >> initialize [
 
 	super initialize.
 	locations := #().
-	icons := IdentityDictionary new
+	icons := IdentityDictionary new.
+	icons at: #blank put: (Form extent: 16@16 depth: 8)
 ]
 
 { #category : #inspecting }
