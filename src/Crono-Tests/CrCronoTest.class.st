@@ -5,6 +5,14 @@ Class {
 }
 
 { #category : #tests }
+CrCronoTest >> newRange: days [
+
+	^ CrCronoRange 
+			newFrom: (Date today - days) asDate
+			to: Date today
+]
+
+{ #category : #tests }
 CrCronoTest >> testLog [ 
 
 	self assert: CrCronoTask selectAll isEmpty.
@@ -23,21 +31,19 @@ CrCronoTest >> testReviewTo [
 	
 	review := String streamContents: [ :stream | 
 		crono 
-			review: (CrCronoRange 
-				newFrom: (Date today - 1 day) asDate
-				to: Date today) 
+			review: (self newRange: 1 day) 
 			to: stream ].
 	
 	self 
 		assert: review
 		equals: ((('{1}
-{2} Test 1
-{2} Test 2
-{2} Test 3
+
+    * Test 1
+    * Test 2
+    * Test 3
+
 ') withLineEndings: Smalltalk platform lineEnding)
-	format: {
-		ZTimestamp now asDate ddmmyyyy. 
-		ZTimestamp now asTime logPrintTime })
+	format: { ZTimestamp now asDate ddmmyyyy })
 ]
 
 { #category : #tests }
@@ -51,18 +57,21 @@ Test 1.1'.
 	crono log: 'Test 3
 Test 3.1'.
 	
-	review := String streamContents: [ :stream | crono review: 1 day to: stream ].
+	review := String streamContents: [ :stream | 
+		crono 
+			review: (self newRange: 1 day) 
+			to: stream ].
 	
 	self 
 		assert: review
 		equals: ((('{1}
-{2} Test 1
-      Test 1.1
-{2} Test 2
-{2} Test 3
-      Test 3.1
+
+    * Test 1
+    Test 1.1
+    * Test 2
+    * Test 3
+    Test 3.1
+
 ') withLineEndings: Smalltalk platform lineEnding)
-	format: {
-		ZTimestamp now asDate ddmmyyyy. 
-		ZTimestamp now asTime logPrintTime })
+	format: { ZTimestamp now asDate ddmmyyyy })
 ]

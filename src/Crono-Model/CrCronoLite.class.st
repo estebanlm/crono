@@ -34,9 +34,9 @@ CrCronoLite >> review: daysRange to: aStream [
 	((self allTasksBetween: startDate and: endDate)
 		groupedBy: [ :each | each doneDate asDate ])
 		keysAndValuesDo: [ :day :tasks | 
-			stream << day ddmmyyyy; newLine. 
+			stream << day ddmmyyyy; newLine; newLine. 
 			tasks 
-				do: [ :each | each printCronoTimeLogOn: stream ]
+				do: [ :each | each printChangeLogOn: stream ]
 				separatedBy: [ stream newLine ].
-			stream newLine ]
+			stream newLine; newLine ]
 ]

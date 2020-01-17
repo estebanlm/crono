@@ -248,11 +248,21 @@ CrTodoTask >> owner: aTodoList [
 ]
 
 { #category : #printing }
+CrTodoTask >> printChangeLogLines: aString on: stream [
+
+	(aString withNoLineLongerThan: 96) lines 
+		do: [ :each | stream << '    ' << each ]
+		separatedBy: [ stream newLine ].
+
+]
+
+{ #category : #printing }
 CrTodoTask >> printChangeLogOn: stream [ 
 	
-	(('* ', self fullName) withNoLineLongerThan: 96) lines 
-		do: [ :each | stream << '    ' << each ]
-		separatedBy: [ stream cr ]
+	self printChangeLogLines: ('* ', self fullName) on: stream.
+	self notes isEmptyOrNil ifTrue: [ ^ self ].  
+	stream newLine.
+	self printChangeLogLines: self notes on: stream
 ]
 
 { #category : #printing }
