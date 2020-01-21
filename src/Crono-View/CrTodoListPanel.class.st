@@ -160,6 +160,7 @@ CrTodoListPanel >> initializePresenters [
 		add: (statusBar := self instantiate: CrTodoListStatusBarPanel);
 		addLast: ((showArchivedButton := self newToggleButton)
 			icon: (self application iconNamed: #actionShow);
+			help: 'Show archived tasks';
 			whenChangedDo: [ self doToggleShownArchived ];
 			yourself);
 		addLast: (self newButton

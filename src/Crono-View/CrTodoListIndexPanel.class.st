@@ -34,6 +34,7 @@ CrTodoListIndexPanel >> activeLists [
 { #category : #accessing }
 CrTodoListIndexPanel >> activeTodoList [
 	
+	list ifNil: [ ^ nil ].
 	^ self selectedItem ifNotNil: #todoList
 ]
 
@@ -56,6 +57,10 @@ CrTodoListIndexPanel >> contextMenuActions [
 
 	^ CmCommandGroup forSpec
 		beRoot;
+		register: ((CmCommandGroup named: 'Organisation') asSpecGroup
+			beDisplayedAsGroup;
+			register: (CrTodoAddListCommand forSpecContext: self);
+			yourself);
 		register: ((CmCommandGroup named: 'Management') asSpecGroup
 			beDisplayedAsGroup;
 			register: (CrTodoViewArchivedCommand forSpecContext: self);
@@ -66,6 +71,12 @@ CrTodoListIndexPanel >> contextMenuActions [
 			register: (CrTodoListDeleteCommand forSpecContext: self);
 			yourself);
 		yourself
+]
+
+{ #category : #private }
+CrTodoListIndexPanel >> contextMenuKeyBindings [
+
+	^ self contextMenuActions asKMCategory
 ]
 
 { #category : #initialization }
@@ -141,6 +152,7 @@ CrTodoListIndexPanel >> initializePresenters [
 		presenters: self visibleListPresenters;
 		selectIndex: 2;
 		contextMenu: [ self contextMenu ];
+		contextKeyBindings: self contextMenuKeyBindings;
 		whenActivatedDo: [ self editList ];
 		yourself.
 		
@@ -161,6 +173,7 @@ CrTodoListIndexPanel >> initializePresenters [
 			yourself);
 		addLast: ((showArchivedButton := self newToggleButton)
 			icon: (self application iconNamed: #actionShow);
+			help: 'Show archived lists';
 			whenChangedDo: [ self doToggleShownArchived ];
 			yourself);
 		yourself
