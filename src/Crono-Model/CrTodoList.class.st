@@ -146,6 +146,15 @@ CrTodoList >> addTask: aTask [
 	tasks add: aTask
 ]
 
+{ #category : #actions }
+CrTodoList >> archive [
+
+	self isArchived ifTrue: [ ^ self ].
+
+	self archived: true.
+	self save
+]
+
 { #category : #accessing }
 CrTodoList >> archived: aBoolean [
 
@@ -304,6 +313,14 @@ CrTodoList >> type [
 CrTodoList >> type: aListType [
 
 	type := aListType
+]
+
+{ #category : #actions }
+CrTodoList >> unarchive [
+
+	self isArchived ifFalse: [ ^ self ].
+	self archived: false.
+	self save
 ]
 
 { #category : #writing }

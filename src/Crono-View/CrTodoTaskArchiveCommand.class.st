@@ -1,6 +1,6 @@
 Class {
 	#name : #CrTodoTaskArchiveCommand,
-	#superclass : #CrCommand,
+	#superclass : #CrTodoTaskCommand,
 	#category : #'Crono-View-Todo-Commands'
 }
 
@@ -39,15 +39,10 @@ CrTodoTaskArchiveCommand >> execute [
 CrTodoTaskArchiveCommand >> name [
 
 	self task ifNil: [ ^ super name ].
+
 	^ self task isArchived 
 		ifTrue: [ 'Unarchive' ]
 		ifFalse: [ 'Archive' ]
-]
-
-{ #category : #accessing }
-CrTodoTaskArchiveCommand >> task [
-
-	^ context activeTask
 ]
 
 { #category : #accessing }

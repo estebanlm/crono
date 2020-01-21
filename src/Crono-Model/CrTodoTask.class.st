@@ -185,7 +185,7 @@ CrTodoTask >> initialize [
 { #category : #testing }
 CrTodoTask >> isArchived [
 
-	^ archived
+	^ archived or: [ self owner isArchived ]
 ]
 
 { #category : #testing }

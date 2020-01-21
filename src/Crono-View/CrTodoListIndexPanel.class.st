@@ -31,6 +31,12 @@ CrTodoListIndexPanel >> activeLists [
 	^ CrTodoList allLists reject: #isArchived
 ]
 
+{ #category : #accessing }
+CrTodoListIndexPanel >> activeTodoList [
+	
+	^ self selectedItem ifNotNil: #todoList
+]
+
 { #category : #actions }
 CrTodoListIndexPanel >> addList [
 

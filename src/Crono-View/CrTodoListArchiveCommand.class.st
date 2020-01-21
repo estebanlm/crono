@@ -21,3 +21,25 @@ CrTodoListArchiveCommand class >> defaultShortcut [
 
 	^ $a platformMeta
 ]
+
+{ #category : #executing }
+CrTodoListArchiveCommand >> execute [
+	
+	self todoList isArchived 
+		ifTrue: [ self todoList unarchive ]
+		ifFalse: [ self todoList archive ].
+	context refresh.
+
+	context application notificationCenter
+		notify: (CrListChangedNotification newList: self todoList)
+]
+
+{ #category : #accessing }
+CrTodoListArchiveCommand >> name [
+
+	self todoList ifNil: [ ^ super name ].
+
+	^ self todoList isArchived 
+		ifTrue: [ 'Unarchive' ]
+		ifFalse: [ 'Archive' ]
+]

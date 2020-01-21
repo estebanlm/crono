@@ -5,6 +5,29 @@ Class {
 }
 
 { #category : #tests }
+CrTodoListTest >> testArchive [
+	| list task |
+
+	task := CrTodoTask new
+		name: 'Test';
+		notes: 'Test';
+		done: false;
+		yourself.
+
+	list := CrTodoList newName: 'Test List'. 
+	list save.
+	list saveTask: task.
+	
+	self deny: list isArchived.
+	self deny: task isArchived.
+	
+	list archive.
+	
+	self assert: list isArchived.
+	self assert: task isArchived
+]
+
+{ #category : #tests }
 CrTodoListTest >> testMoveTaskTo [
 	| task list1 list2 |
 
@@ -48,4 +71,29 @@ CrTodoListTest >> testSaveTask [
 	self 
 		assert: (CrTodoList listNamed: 'Test List') tasks anyOne 
 		equals: task
+]
+
+{ #category : #tests }
+CrTodoListTest >> testUnarchive [
+	| list task |
+
+	task := CrTodoTask new
+		name: 'Test';
+		notes: 'Test';
+		done: false;
+		yourself.
+
+	list := CrTodoList newName: 'Test List'. 
+	list save.
+	list saveTask: task.
+
+	list archive.	
+	
+	self assert: list isArchived.
+	self assert: task isArchived.
+	
+	list unarchive. 
+	
+	self deny: list isArchived.
+	self deny: task isArchived
 ]
