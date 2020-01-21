@@ -155,5 +155,5 @@ CrCronoTask >> tags [
 { #category : #private }
 CrCronoTask >> updateTags [
 	
-	tags := self collectTagsOn: self notes
+	tags := (self collectTagsOn: self notes) removeDuplicates
 ]

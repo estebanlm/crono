@@ -21,3 +21,20 @@ CrTodoListDeleteCommand class >> defaultShortcut [
 
 	^ $x platformMeta
 ]
+
+{ #category : #executing }
+CrTodoListDeleteCommand >> execute [
+	| ok todoList |
+	
+	todoList := self todoList.
+	
+	ok := (CrConfirmDialog new 
+		title: 'Delete Todo List';
+		label: ('You are about to delete "{1}" and all its tasks' format: { todoList name });
+		openDialogWithSpecParent: context window)
+		isOk.
+	ok ifFalse: [ ^ self ].
+	
+	todoList remove.
+	context refresh
+]

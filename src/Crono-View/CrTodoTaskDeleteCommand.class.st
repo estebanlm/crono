@@ -1,6 +1,6 @@
 Class {
 	#name : #CrTodoTaskDeleteCommand,
-	#superclass : #CrCommand,
+	#superclass : #CrTodoTaskCommand,
 	#category : #'Crono-View-Todo-Commands'
 }
 
@@ -45,12 +45,6 @@ CrTodoTaskDeleteCommand >> execute [
 	focused ifTrue: [ 
 		context application notificationCenter
 			notify: (CrListChangedNotification newList: CrTodoList focus) ]
-]
-
-{ #category : #accessing }
-CrTodoTaskDeleteCommand >> task [
-
-	^ context activeTask
 ]
 
 { #category : #accessing }

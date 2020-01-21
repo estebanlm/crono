@@ -54,6 +54,26 @@ CrTodoListTest >> testMoveTaskTo [
 ]
 
 { #category : #tests }
+CrTodoListTest >> testRemove [
+	| list task |
+
+	task := CrTodoTask new
+		name: 'Test';
+		notes: 'Test';
+		done: false;
+		yourself.
+
+	list := CrTodoList newName: 'Test List'. 
+	list save.
+	list saveTask: task.
+	
+	list remove.
+	
+	self assert: CrTodoList selectAll size equals: 2.
+	self assert: CrTodoTask selectAll isEmpty.
+]
+
+{ #category : #tests }
 CrTodoListTest >> testSaveTask [
 	| task |
 
