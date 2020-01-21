@@ -66,7 +66,9 @@ CrTodoListPanel >> autoArchiveAfterDays [
 { #category : #private }
 CrTodoListPanel >> contextMenu [
 
-	^ self contextMenuActions asMenuPresenter
+	^ self contextMenuActions 
+		prepareForContextMenu;
+		asMenuPresenter
 ]
 
 { #category : #private }
@@ -77,7 +79,7 @@ CrTodoListPanel >> contextMenuActions [
 		register: ((CmCommandGroup named: 'Organisation') asSpecGroup
 			beDisplayedAsGroup;
 			register: (CrTodoTaskToggleFocusCommand forSpecContext: self);
-			"register: (CrTodoAddTaskCommand forSpecContext: self);"
+			register: (CrTodoAddTaskCommand forSpecContext: self);
 			register: (CrTodoTaskMoveCommand forSpecContext: self);
 			yourself);
 		register: ((CmCommandGroup named: 'Management') asSpecGroup

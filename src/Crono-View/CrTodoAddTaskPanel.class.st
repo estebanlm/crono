@@ -43,6 +43,6 @@ CrTodoAddTaskPanel >> initializeDialogWindow: aDialogWindowPresenter [
 CrTodoAddTaskPanel >> initializeWindow: aWindowPresenter [
 
 	super initializeWindow: aWindowPresenter.
-	aWindowPresenter title: 'New Task'
+	aWindowPresenter title: ('Add task to {1}' format: { self todoList name })
 
 ]
