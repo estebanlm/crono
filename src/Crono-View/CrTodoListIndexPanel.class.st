@@ -1,10 +1,16 @@
+"
+I am a panel to show the list of todo list. 
+
+"
 Class {
 	#name : #CrTodoListIndexPanel,
 	#superclass : #SpPresenter,
 	#instVars : [
 		'list',
 		'actionBar',
-		'inactiveList'
+		'inactiveList',
+		'showArchivedButton',
+		'shownArchived'
 	],
 	#category : #'Crono-View-Todo'
 }
@@ -14,9 +20,15 @@ CrTodoListIndexPanel class >> defaultSpec [
 
 	^ SpBoxLayout newVertical
 		add: #list;
-		add: #inactiveList expand: false;
+		"add: #inactiveList expand: false;"
 		add: #actionBar expand: false;
 		yourself
+]
+
+{ #category : #accessing }
+CrTodoListIndexPanel >> activeLists [
+
+	^ CrTodoList allLists reject: #isArchived
 ]
 
 { #category : #actions }
@@ -26,29 +38,28 @@ CrTodoListIndexPanel >> addList [
 ]
 
 { #category : #private }
-CrTodoListIndexPanel >> allInactiveListPresenters [
-		
-	^ self allInactiveLists collect: [ :each | 
-		self instantiate: CrTodoListIndexSummaryPanel on: each  ]
-]
+CrTodoListIndexPanel >> contextMenu [
 
-{ #category : #accessing }
-CrTodoListIndexPanel >> allInactiveLists [
-
-	^ CrTodoList allLists reject: #isVisible
+	^ self contextMenuActions 
+		prepareForContextMenu;
+		asMenuPresenter
 ]
 
 { #category : #private }
-CrTodoListIndexPanel >> allListPresenters [
-		
-	^ self allLists collect: [ :each | 
-		self instantiate: CrTodoListIndexSummaryPanel on: each  ]
-]
+CrTodoListIndexPanel >> contextMenuActions [
 
-{ #category : #accessing }
-CrTodoListIndexPanel >> allLists [
-
-	^ CrTodoList allLists select: #isVisible
+	^ CmCommandGroup forSpec
+		beRoot;
+		register: ((CmCommandGroup named: 'Management') asSpecGroup
+			beDisplayedAsGroup;
+			register: (CrTodoViewArchivedCommand forSpecContext: self);
+			yourself);
+		register: ((CmCommandGroup named: 'Critical') asSpecGroup
+			beDisplayedAsGroup;
+			register: (CrTodoListArchiveCommand forSpecContext: self);
+			register: (CrTodoListDeleteCommand forSpecContext: self);
+			yourself);
+		yourself
 ]
 
 { #category : #initialization }
@@ -68,13 +79,20 @@ CrTodoListIndexPanel >> defineOutputPorts [
 		collect: [ :each |
 			each copy 
 				delegateTo: [ list ];
-				yourself ]),
+				yourself ])",
 		(inactiveList defineOutputPorts
 			collect: [ :each | 
 				each copy 
 					name: 'inactive-', each name;
 					delegateTo: [ inactiveList ];
-					yourself ])
+					yourself ])"
+]
+
+{ #category : #'private actions' }
+CrTodoListIndexPanel >> doToggleShownArchived [
+
+	shownArchived := shownArchived not.
+	self refresh
 ]
 
 { #category : #actions }
@@ -95,9 +113,16 @@ CrTodoListIndexPanel >> firstResponder [
 	^ list
 ]
 
+{ #category : #accessing }
+CrTodoListIndexPanel >> inactiveLists [
+
+	^ CrTodoList allLists select: #isArchived
+]
+
 { #category : #initialization }
 CrTodoListIndexPanel >> initialize [
 
+	shownArchived := false.
 	super initialize.
 	self initializeSubscribers
 ]
@@ -107,18 +132,19 @@ CrTodoListIndexPanel >> initializePresenters [
 
 	list := self newComponentList
 		addStyle: 'list';
-		presenters: self allListPresenters;
+		presenters: self visibleListPresenters;
 		selectIndex: 2;
+		contextMenu: [ self contextMenu ];
 		whenActivatedDo: [ self editList ];
 		yourself.
 		
-	inactiveList := self newComponentList
+	"inactiveList := self newComponentList
 		addStyle: 'list';
 		presenters: self allInactiveListPresenters;
 		yourself.
 		
 	list transmitDo: [ 
-		inactiveList selection unselectAll ].
+		inactiveList selection unselectAll ]."
 		
 	actionBar := self newActionBar
 		add: (self newButton 
@@ -126,6 +152,10 @@ CrTodoListIndexPanel >> initializePresenters [
 			icon: (self application iconNamed: #actionAdd);
 			help: 'Add a new List';
 			action: [ self addList ];
+			yourself);
+		addLast: ((showArchivedButton := self newToggleButton)
+			icon: (self application iconNamed: #actionShow);
+			whenChangedDo: [ self doToggleShownArchived ];
 			yourself);
 		yourself
 ]
@@ -156,7 +186,7 @@ CrTodoListIndexPanel >> noteListChanged: aNotification [
 { #category : #accessing }
 CrTodoListIndexPanel >> refresh [
 
-	self refreshThenSelect: self selectedItem
+	self refreshThenSelect: self selectedItem todoList
 ]
 
 { #category : #accessing }
@@ -168,7 +198,7 @@ CrTodoListIndexPanel >> refreshSelection [
 { #category : #accessing }
 CrTodoListIndexPanel >> refreshThenSelect: aTodoList [
 
-	list presenters: self allListPresenters.
+	list presenters: self visibleListPresenters.
 	self selectItem: aTodoList
 ]
 
@@ -187,4 +217,30 @@ CrTodoListIndexPanel >> selectItem: aTodoList [
 CrTodoListIndexPanel >> selectedItem [
 
 	^ list selection selectedItem
+]
+
+{ #category : #testing }
+CrTodoListIndexPanel >> shownArchived [
+
+	^ shownArchived
+]
+
+{ #category : #actions }
+CrTodoListIndexPanel >> toggleShownArchived [
+
+	showArchivedButton state: showArchivedButton state not
+]
+
+{ #category : #private }
+CrTodoListIndexPanel >> visibleListPresenters [
+		
+	^ self visibleLists collect: [ :each | 
+		self instantiate: CrTodoListIndexSummaryPanel on: each  ]
+]
+
+{ #category : #accessing }
+CrTodoListIndexPanel >> visibleLists [
+
+	self shownArchived ifFalse: [ ^ self activeLists ].
+	^ self activeLists, self inactiveLists
 ]

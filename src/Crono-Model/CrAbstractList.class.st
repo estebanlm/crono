@@ -45,6 +45,12 @@ CrAbstractList >> includesTask: aTask [
 ]
 
 { #category : #testing }
+CrAbstractList >> isArchived [
+
+	^ false
+]
+
+{ #category : #testing }
 CrAbstractList >> isEditable [
 
 	^ self type isEditable
