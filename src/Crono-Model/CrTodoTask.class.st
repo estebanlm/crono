@@ -356,6 +356,5 @@ CrTodoTask >> unarchive [
 { #category : #private }
 CrTodoTask >> updateTags [
 	
-	tags := ((self collectTagsOn: self name), (self collectTagsOn: self notes)) removeDuplicates
-
+	tags := ((self collectTagsOn: self name), (self collectTagsOn: self notes)) asSet asArray
 ]
