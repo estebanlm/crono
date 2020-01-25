@@ -37,8 +37,9 @@ CrTodoEditListCommand >> execute [
 	list name: dialog presenter text.
 	list save.
 	
-	context application notificationCenter notify: (CrListChangedNotification newList: list)
-
+	context application notificationCenter 
+		notify: (CrListChangedNotification newList: list);
+		notify: (CrListNameChangedNotification newList: list)
 ]
 
 { #category : #accessing }

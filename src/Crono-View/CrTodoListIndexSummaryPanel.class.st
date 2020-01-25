@@ -40,6 +40,7 @@ CrTodoListIndexSummaryPanel >> initializePresenters [
 { #category : #accessing }
 CrTodoListIndexSummaryPanel >> refresh [
 
+	self updateName.
 	self updateStatus.
 	self updateImage
 ]
@@ -93,6 +94,12 @@ CrTodoListIndexSummaryPanel >> updateImage [
 	
 	iconImage image: (self todoList iconOn: self application)	
 	
+]
+
+{ #category : #'private updating' }
+CrTodoListIndexSummaryPanel >> updateName [
+
+	nameLabel label: self todoList name
 ]
 
 { #category : #'private updating' }
