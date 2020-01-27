@@ -22,6 +22,12 @@ CrTodoListArchiveCommand class >> defaultShortcut [
 	^ $a platformMeta
 ]
 
+{ #category : #testing }
+CrTodoListArchiveCommand >> canBeExecuted [
+
+	^ self todoList isEditable
+]
+
 { #category : #executing }
 CrTodoListArchiveCommand >> execute [
 	

@@ -22,6 +22,12 @@ CrTodoListDeleteCommand class >> defaultShortcut [
 	^ $x platformMeta
 ]
 
+{ #category : #testing }
+CrTodoListDeleteCommand >> canBeExecuted [
+
+	^ self todoList isEditable
+]
+
 { #category : #executing }
 CrTodoListDeleteCommand >> execute [
 	| ok todoList |
