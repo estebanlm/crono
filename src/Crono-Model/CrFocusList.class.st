@@ -48,7 +48,7 @@ CrFocusList >> onApplicationStart: anApplication [
 CrFocusList >> removeTask: aTask follow: follow [ 
 	
 	super removeTask: aTask follow: follow.
-	tasksCache := tasksCache copyWithout: aTask
+	self resetCache
 ]
 
 { #category : #private }
