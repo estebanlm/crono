@@ -44,6 +44,13 @@ CrFocusList >> onApplicationStart: anApplication [
 		to: CrListChangedNotification
 ]
 
+{ #category : #actions }
+CrFocusList >> removeTask: aTask follow: follow [ 
+	
+	super removeTask: aTask follow: follow.
+	tasksCache := tasksCache copyWithout: aTask
+]
+
 { #category : #private }
 CrFocusList >> resetCache [
 

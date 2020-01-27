@@ -50,6 +50,14 @@ CrVirtualList >> onApplicationStart: anApplication [
 ]
 
 { #category : #actions }
+CrVirtualList >> removeTask: aTask follow: follow [ 
+	
+	aTask owner
+		removeTask: aTask 
+		follow: follow.
+]
+
+{ #category : #actions }
 CrVirtualList >> saveTask: aTask [ 
 	"Adding a task here is in fact adding it to unsorted"
 	
