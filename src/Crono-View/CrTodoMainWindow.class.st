@@ -41,7 +41,9 @@ CrTodoMainWindow >> installMainMenuInWindow [
 { #category : #private }
 CrTodoMainWindow >> mainMenu [
 
-	^ self mainMenuActions asMenuBarPresenter
+	^ self mainMenuActions 
+		prepareForContextMenu;
+		asMenuBarPresenter
 ]
 
 { #category : #private }
@@ -50,21 +52,17 @@ CrTodoMainWindow >> mainMenuActions [
 	^ CmCommandGroup forSpec
 		beRoot;
 		register: ((CmCommandGroup named: 'File') asSpecGroup
-			register: ((CmCommandGroup named: 'Organisation') asSpecGroup
+			register: ((CmCommandGroup named: 'Preferences') asSpecGroup
 				beDisplayedAsGroup;
-				register: (CrTodoTaskToggleFocusCommand forSpecContext: self);
-				register: (CrTodoAddTaskCommand forSpecContext: self);
-				register: (CrTodoTaskMoveCommand forSpecContext: self);
+				register: (CrPreferencesCommand forSpecContext: self);
 				yourself);
-			register: ((CmCommandGroup named: 'Critical') asSpecGroup
+			register: ((CmCommandGroup named: 'Quit') asSpecGroup
 				beDisplayedAsGroup;
-				register: (CrTodoArchiveCompletedCommand forSpecContext: self);
-				register: (CrTodoTaskArchiveCommand forSpecContext: self);
-				register: (CrTodoTaskDeleteCommand forSpecContext: self);
+				register: (CrQuitCommand forSpecContext: self);
 				yourself);
 			yourself);
-		register: ((CmCommandGroup named: 'View') asSpecGroup
-			register: (CrTodoViewArchivedCommand forSpecContext: self);
+		register: ((CmCommandGroup named: 'Window') asSpecGroup
+			"register: (CrTodoViewArchivedCommand forSpecContext: self);"
 			yourself);
 		yourself	
 ]
