@@ -96,7 +96,7 @@ CrModelApplication >> initializeRepository [
 	isNew := reference exists not.
 	repository := VOUnQLiteRepository on: reference.
 	isNew ifTrue: [ 
-		CrTodoList newBaseLists 
+		CrTodoList newBaseLists
 			do: [ :each | repository save: each ] ]
 ]
 

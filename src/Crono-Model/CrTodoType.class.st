@@ -42,6 +42,12 @@ CrTodoType class >> inbox [
 	^ CrTodoTypeInbox uniqueInstance
 ]
 
+{ #category : #accessing }
+CrTodoType class >> life [
+
+	^ CrTodoTypeLife uniqueInstance
+]
+
 { #category : #'ston-core' }
 CrTodoType class >> stonName [
 

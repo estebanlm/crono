@@ -31,7 +31,7 @@ CrTodoList class >> baseLists [
 	 Yes it is a HACK :P"
 	^ CrApplication current 
 		propertyAt: #baseLists 
-		ifAbsentPut: [ { self inbox. self focus. self unsorted } ]
+		ifAbsentPut: [ { self inbox. self focus. self unsorted. self life } ]
 ]
 
 { #category : #accessing }
@@ -55,6 +55,12 @@ CrTodoList class >> isVoyageRoot [
 ]
 
 { #category : #accessing }
+CrTodoList class >> life [
+
+	^ self selectOne: [ :each | each type = CrTodoType life typeName ]
+]
+
+{ #category : #accessing }
 CrTodoList class >> listNamed: aString [
 	
 	^ self selectOne: [ :each | each name = aString ]
@@ -71,7 +77,8 @@ CrTodoList class >> newBaseLists [
 	
 	^ { 
 		(CrTodoList newType: CrTodoType inbox).
-		(CrTodoList newType: CrTodoType unsorted)
+		(CrTodoList newType: CrTodoType unsorted).
+		(CrTodoList newType: CrTodoType life)
 	}
 ]
 
