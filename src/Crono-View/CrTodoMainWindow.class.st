@@ -62,7 +62,8 @@ CrTodoMainWindow >> mainMenuActions [
 				yourself);
 			yourself);
 		register: ((CmCommandGroup named: 'Window') asSpecGroup
-			"register: (CrTodoViewArchivedCommand forSpecContext: self);"
+			register: (CrMinimizeActiveWindowCommand forSpecContext: self);
+			register: (CrMaximizeActiveWindowCommand forSpecContext: self);
 			yourself);
 		yourself	
 ]
@@ -77,6 +78,12 @@ CrTodoMainWindow >> menuBar [
 CrTodoMainWindow >> menuBar: aMenuPresenter [
 
 	menuBar := aMenuPresenter
+]
+
+{ #category : #accessing }
+CrTodoMainWindow >> rebuildMenuBar [
+
+	self installMainMenuInWindow
 ]
 
 { #category : #'as yet unclassified' }

@@ -1,3 +1,7 @@
+"
+I'm the ""quit"" command. 
+I exit the application.
+"
 Class {
 	#name : #CrQuitCommand,
 	#superclass : #CrCommand,

@@ -1,3 +1,6 @@
+"
+I open the preferences dialog.
+"
 Class {
 	#name : #CrPreferencesCommand,
 	#superclass : #CrCommand,
