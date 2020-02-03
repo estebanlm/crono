@@ -51,13 +51,8 @@ CrGtkConfiguration >> configureWindows: anApplication [
 
 { #category : #configuring }
 CrGtkConfiguration >> ensureAppearance: aName [
-	| currentAppearance appearance |
 
-	currentAppearance := #NSAppearance inObjC currentAppearance. 
-	currentAppearance name UTF8String = aName ifTrue: [ ^ self ].
-
-	appearance := #NSAppearance inObjC appearanceNamed: (#NSString inObjC stringWithUTF8String: aName).
-	#NSApplication inObjC sharedApplication setAppearance: appearance
+	MpSettings ensureAppearance: aName
 ]
 
 { #category : #accessing }

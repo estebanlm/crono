@@ -31,6 +31,14 @@ BaselineOfCrono >> grouper: spec [
 ]
 
 { #category : #'external projects' }
+BaselineOfCrono >> macPack: spec [
+
+	spec
+		baseline: 'MacPack'
+		with: [ spec repository: 'github://estebanlm/macpack' ]
+]
+
+{ #category : #'external projects' }
 BaselineOfCrono >> marsGtk: spec [
 
 	spec
