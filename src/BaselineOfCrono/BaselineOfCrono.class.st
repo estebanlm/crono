@@ -14,6 +14,7 @@ BaselineOfCrono >> baseline: spec [
 		self voyage: spec.
 		self marsGtk: spec.
 		self objCBridge: spec.
+		self macPack: spec.
 
 		spec 
 			package: 'Crono-Model' with: [ 
