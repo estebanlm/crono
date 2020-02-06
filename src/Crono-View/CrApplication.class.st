@@ -46,7 +46,8 @@ CrApplication class >> reset [
 
 { #category : #private }
 CrApplication class >> setCurrent: anApplication [
-
+	"used for test"
+	
 	Current := anApplication
 ]
 
