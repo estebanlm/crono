@@ -30,14 +30,14 @@ CrTodoListArchiveCommand >> canBeExecuted [
 
 { #category : #executing }
 CrTodoListArchiveCommand >> execute [
+	| list |
 	
-	self todoList isArchived 
-		ifTrue: [ self todoList unarchive ]
-		ifFalse: [ self todoList archive ].
+	list := self todoList.
+	list toggleArchive.
 	context refresh.
 
 	context application notificationCenter
-		notify: (CrListChangedNotification newList: self todoList)
+		notify: (CrListChangedNotification newList: list)
 ]
 
 { #category : #accessing }

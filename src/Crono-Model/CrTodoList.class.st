@@ -310,6 +310,14 @@ CrTodoList >> tasks: aCollection [
 	tasks := aCollection asOrderedCollection
 ]
 
+{ #category : #actions }
+CrTodoList >> toggleArchive [
+
+	self isArchived 
+		ifTrue: [ self unarchive ]
+		ifFalse: [ self archive ]
+]
+
 { #category : #accessing }
 CrTodoList >> type [
 

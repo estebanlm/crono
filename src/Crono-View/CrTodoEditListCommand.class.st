@@ -29,6 +29,7 @@ CrTodoEditListCommand >> execute [
 	dialog := CrRequestDialog new
 		title: ('Rename {1}' format: { list name });
 		label: 'Please enter your list name';
+		text: self list name;
 		openDialogWithSpecParent: context window.
 	
 	dialog isOk ifFalse: [ ^ self ].
@@ -38,8 +39,7 @@ CrTodoEditListCommand >> execute [
 	list save.
 	
 	context application notificationCenter 
-		notify: (CrListChangedNotification newList: list);
-		notify: (CrListNameChangedNotification newList: list)
+		notify: (CrListChangedNotification newList: list)
 ]
 
 { #category : #accessing }

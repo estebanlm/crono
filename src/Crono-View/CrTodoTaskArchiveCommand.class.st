@@ -25,9 +25,7 @@ CrTodoTaskArchiveCommand class >> defaultShortcut [
 { #category : #executing }
 CrTodoTaskArchiveCommand >> execute [
 	
-	self task isArchived 
-		ifTrue: [ self task unarchive ]
-		ifFalse: [ self task archive ].
+	self task toggleArchive.
 	context refresh.
 
 	context application notificationCenter

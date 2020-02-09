@@ -340,6 +340,14 @@ CrTodoTask >> takeMemento [
 ]
 
 { #category : #actions }
+CrTodoTask >> toggleArchive [
+
+	self isArchived 
+		ifTrue: [ self unarchive ]
+		ifFalse: [ self archive ]
+]
+
+{ #category : #actions }
 CrTodoTask >> toggleFocus [
 	
 	self changeFocusTo: self isFocused not
