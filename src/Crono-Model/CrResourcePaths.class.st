@@ -24,13 +24,13 @@ CrResourcePaths >> cronoRepositoryReference [
 ]
 
 { #category : #accessing }
-CrResourcePaths >> iconsDir [
+CrResourcePaths >> iconsDirectory [
 
-	^ self resourcesDir / 'icons' / '16'
+	^ self resourcesDirectory / 'icons' / '16'
 ]
 
 { #category : #accessing }
-CrResourcePaths >> resourcesDir [
+CrResourcePaths >> resourcesDirectory [
 
 	^ FileLocator imageDirectory
 ]

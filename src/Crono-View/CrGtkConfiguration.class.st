@@ -60,15 +60,15 @@ CrGtkConfiguration >> iconProvider [
 
 	^ iconProvider ifNil: [ 
 		iconProvider := CrIconProvider new
-			addLocation: self iconsDir;
-			addLocation: self themeIconsDir;
+			addLocation: self iconsDirectory;
+			addLocation: self themeIconsDirectory;
 			yourself ] 
 ]
 
 { #category : #'accessing resources' }
-CrGtkConfiguration >> iconsDir [
+CrGtkConfiguration >> iconsDirectory [
 
-	^ self model paths iconsDir
+	^ self model paths iconsDirectory
 ]
 
 { #category : #accessing }
@@ -98,15 +98,15 @@ CrGtkConfiguration >> model [
 ]
 
 { #category : #'accessing resources' }
-CrGtkConfiguration >> resourcesDir [
+CrGtkConfiguration >> resourcesDirectory [
 
-	^ self model paths resourcesDir
+	^ self model paths resourcesDirectory
 ]
 
 { #category : #'accessing resources' }
-CrGtkConfiguration >> themeIconsDir [
+CrGtkConfiguration >> themeIconsDirectory [
 
-	^ self iconsDir / 'light'
+	^ self iconsDirectory / 'light'
 ]
 
 { #category : #'accessing style' }

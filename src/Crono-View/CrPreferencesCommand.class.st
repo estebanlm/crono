@@ -18,3 +18,11 @@ CrPreferencesCommand class >> defaultShortcut [
 
 	^ $, platformMeta
 ]
+
+{ #category : #executing }
+CrPreferencesCommand >> execute [
+	
+	self halt.
+	self crTrace.
+	self halt
+]

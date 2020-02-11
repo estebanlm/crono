@@ -17,7 +17,7 @@ CrDevelopmentPaths >> repositoryDir [
 ]
 
 { #category : #accessing }
-CrDevelopmentPaths >> resourcesDir [
+CrDevelopmentPaths >> resourcesDirectory [
 
 	^ self repositoryDir / 'resources'
 ]

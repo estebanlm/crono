@@ -37,16 +37,6 @@ CrSelectionablePanel >> defineInputPorts [
 				yourself ]
 ]
 
-{ #category : #initialization }
-CrSelectionablePanel >> defineOutputPorts [ 
-	
-	^ self presenter defineOutputPorts
-		collect: [ :each | 
-			each copy 
-				delegateTo: [ self presenter ];
-				yourself ]
-]
-
 { #category : #accessing }
 CrSelectionablePanel >> firstResponder [
 

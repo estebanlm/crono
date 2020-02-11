@@ -80,6 +80,12 @@ CrTodoListIndexPanel >> contextMenuKeyBindings [
 ]
 
 { #category : #initialization }
+CrTodoListIndexPanel >> defaultOutputPort [
+
+	^ self outputSelectionPort
+]
+
+{ #category : #initialization }
 CrTodoListIndexPanel >> defineInputPorts [
 
 	^ list defineInputPorts
@@ -87,22 +93,6 @@ CrTodoListIndexPanel >> defineInputPorts [
 			each copy 
 				delegateTo: [ list ];
 				yourself ]
-]
-
-{ #category : #initialization }
-CrTodoListIndexPanel >> defineOutputPorts [ 
-
-	^ (list defineOutputPorts 
-		collect: [ :each |
-			each copy 
-				delegateTo: [ list ];
-				yourself ])",
-		(inactiveList defineOutputPorts
-			collect: [ :each | 
-				each copy 
-					name: 'inactive-', each name;
-					delegateTo: [ inactiveList ];
-					yourself ])"
 ]
 
 { #category : #'private actions' }
@@ -200,6 +190,14 @@ CrTodoListIndexPanel >> noteListChanged: aNotification [
 	list items 
 		select: [ :each | aNotification appliesToList: each todoList ]
 		thenDo: [ :each | each refresh ]
+]
+
+{ #category : #initialization }
+CrTodoListIndexPanel >> outputSelectionPort [
+	
+	^ (SpSelectionPort newPresenter: self)
+		delegateTo: [ list ];
+		yourself
 ]
 
 { #category : #accessing }

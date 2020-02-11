@@ -101,20 +101,10 @@ CrTodoListPanel >> contextMenuKeyBindings [
 	^ self contextMenuActions asKMCategory
 ]
 
-{ #category : #initialization }
-CrTodoListPanel >> defineInputPorts [
+{ #category : #ports }
+CrTodoListPanel >> defaultInputPort [
 	
-	^ { SpModelPort new }
-]
-
-{ #category : #initialization }
-CrTodoListPanel >> defineOutputPorts [ 
-
-	^ list defineOutputPorts 
-		collect: [ :each |
-			each copy 
-				delegate: [ list ];
-				yourself ]
+	^ self inputModelPort
 ]
 
 { #category : #'private actions' }
@@ -177,6 +167,12 @@ CrTodoListPanel >> initializeSubscribers [
 	self application notificationCenter 
 		subscribe: self to: CrTaskNotification;
 		subscribe: self to: CrListChangedNotification
+]
+
+{ #category : #ports }
+CrTodoListPanel >> inputModelPort [
+	
+	^ SpModelPort newPresenter: self
 ]
 
 { #category : #'private factory' }

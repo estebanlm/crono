@@ -21,9 +21,9 @@ CrGtkDarkConfiguration >> macThemeName [
 ]
 
 { #category : #'accessing resources' }
-CrGtkDarkConfiguration >> themeIconsDir [
+CrGtkDarkConfiguration >> themeIconsDirectory [
 
-	^ self iconsDir / 'dark'
+	^ self iconsDirectory / 'dark'
 ]
 
 { #category : #accessing }
