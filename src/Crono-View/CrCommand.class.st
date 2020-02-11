@@ -19,7 +19,7 @@ CrCommand class >> defaultShortcut [
 { #category : #accessing }
 CrCommand >> application [
 
-	^ CrApplication current
+	^ context application
 ]
 
 { #category : #converting }

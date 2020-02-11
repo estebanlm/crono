@@ -22,7 +22,5 @@ CrPreferencesCommand class >> defaultShortcut [
 { #category : #executing }
 CrPreferencesCommand >> execute [
 	
-	self halt.
-	self crTrace.
-	self halt
+	(CrPreferencesDialog newApplication: self application) openDialogWithSpec
 ]
