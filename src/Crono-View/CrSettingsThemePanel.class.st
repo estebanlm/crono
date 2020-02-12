@@ -1,6 +1,6 @@
 Class {
-	#name : #CrSettingTheme,
-	#superclass : #CrSettingPanel,
+	#name : #CrSettingsThemePanel,
+	#superclass : #CrSettingsPanel,
 	#instVars : [
 		'light',
 		'dark'
@@ -8,8 +8,14 @@ Class {
 	#category : #'Crono-View-Todo-Preferences'
 }
 
+{ #category : #accessing }
+CrSettingsThemePanel class >> order [
+
+	^ 10
+]
+
 { #category : #initialization }
-CrSettingTheme >> initializePresenters [
+CrSettingsThemePanel >> initializePresenters [
 
 	layout := SpBoxLayout newVertical
 		beNotHomogeneous;
@@ -24,7 +30,7 @@ CrSettingTheme >> initializePresenters [
 ]
 
 { #category : #accessing }
-CrSettingTheme >> title [
+CrSettingsThemePanel >> title [
 
 	^ 'Theme'
 ]

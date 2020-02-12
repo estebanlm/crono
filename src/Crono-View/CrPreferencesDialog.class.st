@@ -13,9 +13,10 @@ Class {
 CrPreferencesDialog class >> defaultSpec [
 
 	^ SpBoxLayout newHorizontal
+		borderWidth: 5;
 		beNotHomogeneous;
 		add: #optionsList;
-		add: #panel;
+		addLast: #panel;
 		yourself
 ]
 
@@ -29,7 +30,7 @@ CrPreferencesDialog >> allSettings [
 { #category : #accessing }
 CrPreferencesDialog >> createAllSettings [
 
-	^ CrSettingPanel allSettings
+	^ CrSettingsPanel allSettings
 ]
 
 { #category : #initialization }
