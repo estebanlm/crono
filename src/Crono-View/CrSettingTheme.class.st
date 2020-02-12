@@ -1,5 +1,5 @@
 Class {
-	#name : #CrPreferenceTheme,
+	#name : #CrSettingTheme,
 	#superclass : #CrSettingPanel,
 	#instVars : [
 		'light',
@@ -9,17 +9,12 @@ Class {
 }
 
 { #category : #initialization }
-CrPreferenceTheme class >> defaultLayout [
-
-	^ SpBoxLayout newVertical
-]
-
-{ #category : #initialization }
-CrPreferenceTheme >> initializePresenters [
+CrSettingTheme >> initializePresenters [
 
 	layout := SpBoxLayout newVertical
-		add: (light := self newRadioButton);
-		add: (dark := self newRadioButton);
+		beNotHomogeneous;
+		add: (light := self newRadioButton) expand: false;
+		add: (dark := self newRadioButton) expand: false;
 		yourself.
 		
 	light label: 'Light Theme'.
@@ -29,7 +24,7 @@ CrPreferenceTheme >> initializePresenters [
 ]
 
 { #category : #accessing }
-CrPreferenceTheme >> title [
+CrSettingTheme >> title [
 
 	^ 'Theme'
 ]

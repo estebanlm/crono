@@ -33,6 +33,12 @@ CrPreferencesDialog >> createAllSettings [
 ]
 
 { #category : #initialization }
+CrPreferencesDialog >> initializeDialogWindow: aDialogWindowPresenter [
+
+	aDialogWindowPresenter centeredRelativeToTopWindow
+]
+
+{ #category : #initialization }
 CrPreferencesDialog >> initializePresenters [
 
 	optionsList := self newList 
@@ -41,4 +47,12 @@ CrPreferencesDialog >> initializePresenters [
 		yourself.
 	panel := self instantiate: CrPreferencesContainerPanel.
 	optionsList transmitTo: panel
+]
+
+{ #category : #initialization }
+CrPreferencesDialog >> initializeWindow: aWindowPresenter [
+
+	aWindowPresenter 
+		title: 'Preferences';
+		initialExtent: 600@400
 ]
