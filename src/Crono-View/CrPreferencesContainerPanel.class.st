@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'contentPanel'
 	],
-	#category : #'Crono-View-Todo-Preferences'
+	#category : #'Crono-View-Todo-Settings'
 }
 
 { #category : #ports }

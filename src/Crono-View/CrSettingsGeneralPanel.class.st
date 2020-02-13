@@ -6,14 +6,17 @@ Class {
 		'dark',
 		'autoArchiveNumber'
 	],
-	#category : #'Crono-View-Todo-Preferences'
+	#category : #'Crono-View-Todo-Settings'
 }
 
 { #category : #specs }
 CrSettingsGeneralPanel class >> defaultSpec [
 
 	^ SpGridLayout new
-		add: 'Auto-archive completed tasks after (days)' at: 1@1; add: #autoArchiveNumber at: 1@2;
+		beRowNotHomogeneous;
+		beColumnNotHomogeneous;
+		add: 'Auto-archive completed tasks after (days)' at: 1@1; 
+		add: #autoArchiveNumber at: 1@2;
 		yourself
 ]
 
@@ -27,6 +30,9 @@ CrSettingsGeneralPanel class >> order [
 CrSettingsGeneralPanel >> initializePresenters [
 
 	autoArchiveNumber := self newNumberInput
+		number: self settings autoArchiveAfterDays;
+		rangeMinimum: 1 maximum: 365;
+		yourself
 ]
 
 { #category : #accessing }

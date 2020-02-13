@@ -1,7 +1,7 @@
 Class {
 	#name : #CrSettingsPanel,
-	#superclass : #SpPresenter,
-	#category : #'Crono-View-Todo-Preferences'
+	#superclass : #CrPresenter,
+	#category : #'Crono-View-Todo-Settings'
 }
 
 { #category : #accessing }
@@ -16,6 +16,12 @@ CrSettingsPanel class >> allSettings [
 CrSettingsPanel class >> order [
 	"To the bottom, by default"
 	^ 9999
+]
+
+{ #category : #accessing }
+CrSettingsPanel >> settings [
+
+	^ self application settings
 ]
 
 { #category : #accessing }

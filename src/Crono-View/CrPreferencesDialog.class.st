@@ -6,7 +6,7 @@ Class {
 		'panel',
 		'allSettings'
 	],
-	#category : #'Crono-View-Todo-Preferences'
+	#category : #'Crono-View-Todo-Settings'
 }
 
 { #category : #specs }
@@ -15,7 +15,7 @@ CrPreferencesDialog class >> defaultSpec [
 	^ SpBoxLayout newHorizontal
 		borderWidth: 5;
 		beNotHomogeneous;
-		add: #optionsList;
+		add: #optionsList withConstraints: [ :c | c width: 200 ];
 		addLast: #panel;
 		yourself
 ]
