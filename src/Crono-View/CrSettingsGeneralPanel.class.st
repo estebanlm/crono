@@ -30,9 +30,22 @@ CrSettingsGeneralPanel class >> order [
 CrSettingsGeneralPanel >> initializePresenters [
 
 	autoArchiveNumber := self newNumberInput
+		autoAccept: true;
 		number: self settings autoArchiveAfterDays;
 		rangeMinimum: 1 maximum: 365;
+		whenTextChangedDo: [ :text | 
+			self moveAutoArchiveTo: (text trimmed 
+				ifNotEmpty: [ text asNumber ]
+				ifEmpty: [ 1 ]) ];
 		yourself
+]
+
+{ #category : #actions }
+CrSettingsGeneralPanel >> moveAutoArchiveTo: aNumber [
+
+	self settings 
+		autoArchiveAfterDays: aNumber;
+		writeToFile
 ]
 
 { #category : #accessing }
