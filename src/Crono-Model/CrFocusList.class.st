@@ -13,7 +13,7 @@ Class {
 { #category : #accessing }
 CrFocusList >> basicTasks [
 
-	^ CrTodoTask selectMany: [ :each | each at: 'focused' ]	
+	^ CrTodoTask selectMany: [ :each | each focused = true ]	
 
 ]
 

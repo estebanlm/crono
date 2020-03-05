@@ -4,7 +4,6 @@ Class {
 	#instVars : [
 		'session',
 		'paths',
-		'cronoRepository',
 		'repository'
 	],
 	#classVars : [
@@ -64,37 +63,21 @@ CrModelApplication class >> setCurrent: aModelApplication [
 	Current := aModelApplication
 ]
 
-{ #category : #accessing }
-CrModelApplication >> cronoRepository [
-
-	^ cronoRepository
-]
-
 { #category : #initialization }
 CrModelApplication >> initialize [
 
 	super initialize.
 	paths := CrResourcePaths newActive.
-	self initializeRepository.
-	self initializeCronoRepository
-
-]
-
-{ #category : #initialization }
-CrModelApplication >> initializeCronoRepository [
-	| reference |
-
-	reference := self paths cronoRepositoryReference.
-	cronoRepository := VOUnQLiteRepository on: reference
+	self initializeRepository
 ]
 
 { #category : #initialization }
 CrModelApplication >> initializeRepository [
 	| reference isNew |
 
-	reference := self paths todoRepositoryReference.
+	reference := self paths repositoryReference.
 	isNew := reference exists not.
-	repository := VOUnQLiteRepository on: reference.
+	repository := VoEJDBRepository on: reference.
 	isNew ifTrue: [ 
 		CrTodoList newBaseLists
 			do: [ :each | repository save: each ] ]
@@ -116,8 +99,7 @@ CrModelApplication >> repository [
 CrModelApplication >> shutDown [
 
 	repository close.
-	cronoRepository close.
-	CrTodoList focus resetCache.
+	CrTodoList focus resetCache
 ]
 
 { #category : #'system startup' }

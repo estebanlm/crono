@@ -18,25 +18,19 @@ CrResourcePaths class >> newActive [
 ]
 
 { #category : #accessing }
-CrResourcePaths >> cronoRepositoryReference [
-
-	^ FileLocator imageDirectory / 'crono.db'
-]
-
-{ #category : #accessing }
 CrResourcePaths >> iconsDirectory [
 
 	^ self resourcesDirectory / 'icons' / '16'
 ]
 
 { #category : #accessing }
-CrResourcePaths >> resourcesDirectory [
+CrResourcePaths >> repositoryReference [
 
-	^ FileLocator imageDirectory
+	^ FileLocator imageDirectory / 'todo.edb'
 ]
 
 { #category : #accessing }
-CrResourcePaths >> todoRepositoryReference [
+CrResourcePaths >> resourcesDirectory [
 
-	^ FileLocator imageDirectory / 'todo.db'
+	^ FileLocator imageDirectory
 ]

@@ -62,7 +62,7 @@ BaselineOfCrono >> voyage: spec [
 		baseline: 'Voyage'
 		with: [ 
 			spec 
-				loads: #('memory' 'unqlite');
+				loads: #('memory' 'ejdb');
 				repository: 'github://pharo-nosql/voyage' ]
 ]
 

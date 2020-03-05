@@ -33,7 +33,7 @@ CrCronoTask class >> voyageCollectionName [
 	"Sending to a per-year collection to optimise storage. 
 	 Maybe unnecesary."
 	
-	^ 'crono-tasks-{1}' format: { Year current year }
+	^ 'crono-tasks' format: { Year current year }
 ]
 
 { #category : #persistence }
@@ -52,7 +52,7 @@ CrCronoTask class >> voyageDoneDate [
 { #category : #persistence }
 CrCronoTask class >> voyageRepository [
 
-	^ CrModelApplication current cronoRepository
+	^ CrModelApplication current repository
 ]
 
 { #category : #persistence }
