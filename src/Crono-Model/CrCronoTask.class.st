@@ -11,15 +11,11 @@ Class {
 
 { #category : #accessing }
 CrCronoTask class >> findTasksDoneBetween: start and: end [
-	| startTS endTS | 
+	| startTS endTS |  
 
-	startTS := start asZTimestamp.
-	endTS := end asZTimestamp.
-	^ self selectMany: [ :each | 
-		"Do not use the helper to not use the DNU mechanism (to increase query speed)"
-		(each at: 'doneDate') asZTimestamp 
-			between: startTS
-			and: endTS ]
+	startTS := start asZTimestamp printString.
+	endTS := end asZTimestamp printString.
+	^ self selectMany: [ :each | (each doneDate >= startTS) & (each doneDate <= endTS) ]
 ]
 
 { #category : #testing }
