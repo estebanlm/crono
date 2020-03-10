@@ -40,7 +40,8 @@ CrApplication class >> repositoryName [
 CrApplication class >> reset [
 	<script>
 
-	Current ifNotNil: [ Current emergencyShutdown ].
+	Current ifNil: [ ^ self ].
+	Current emergencyShutdown.
 	Current := nil
 ]
 
