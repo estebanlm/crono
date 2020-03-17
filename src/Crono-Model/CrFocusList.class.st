@@ -17,12 +17,6 @@ CrFocusList >> basicTasks [
 
 ]
 
-{ #category : #accessing }
-CrFocusList >> name [
-
-	^ self type name
-]
-
 { #category : #'notification handling' }
 CrFocusList >> noteListChanged: aNotification [
 	

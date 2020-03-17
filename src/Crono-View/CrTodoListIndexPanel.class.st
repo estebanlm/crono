@@ -1,5 +1,5 @@
 "
-I am a panel to show the list of todo list. 
+I am a panel to show the list of todo lists. 
 
 "
 Class {
@@ -28,7 +28,7 @@ CrTodoListIndexPanel class >> defaultSpec [
 { #category : #accessing }
 CrTodoListIndexPanel >> activeLists [
 
-	^ CrTodoList allLists reject: #isArchived
+	^ CrTodoList activeLists
 ]
 
 { #category : #accessing }
@@ -42,6 +42,15 @@ CrTodoListIndexPanel >> activeTodoList [
 CrTodoListIndexPanel >> addList [
 
 	(CrTodoAddListCommand forSpecContext: self) execute
+]
+
+{ #category : #'private actions' }
+CrTodoListIndexPanel >> addSearchPanel [
+
+	list presenters first todoList = CrTodoList search 
+		ifFalse: [ 
+			list presenters: (list presenters copyWithFirst: (self newPanelFor: CrTodoList search)) ].
+	self selectItem: CrTodoList search
 ]
 
 { #category : #private }
@@ -123,7 +132,7 @@ CrTodoListIndexPanel >> firstResponder [
 { #category : #accessing }
 CrTodoListIndexPanel >> inactiveLists [
 
-	^ CrTodoList allLists select: #isArchived
+	^ CrTodoList archivedLists
 ]
 
 { #category : #initialization }
@@ -173,7 +182,14 @@ CrTodoListIndexPanel >> initializePresenters [
 CrTodoListIndexPanel >> initializeSubscribers [
 
 	self application notificationCenter
-		subscribe: self to: CrListNotification
+		subscribe: self to: CrListNotification;
+		subscribe: self to: CrSearchChangedNotification
+]
+
+{ #category : #'private factory' }
+CrTodoListIndexPanel >> newPanelFor: aTodoList [
+
+	^ self instantiate: CrTodoListIndexSummaryPanel on: aTodoList
 ]
 
 { #category : #'notification handling' }
@@ -190,6 +206,12 @@ CrTodoListIndexPanel >> noteListChanged: aNotification [
 	list items 
 		select: [ :each | aNotification appliesToList: each todoList ]
 		thenDo: [ :each | each refresh ]
+]
+
+{ #category : #'notification handling' }
+CrTodoListIndexPanel >> noteSearchChanged: aNotification [
+	
+	self toggleSearchPanel
 ]
 
 { #category : #initialization }
@@ -219,6 +241,17 @@ CrTodoListIndexPanel >> refreshThenSelect: aTodoList [
 	self selectItem: aTodoList
 ]
 
+{ #category : #'private actions' }
+CrTodoListIndexPanel >> removeSearchPanel [
+	| shouldSelectFocus |
+
+	shouldSelectFocus := self activeTodoList = CrTodoList search.
+	list presenters first todoList = CrTodoList search 
+		ifTrue: [ list presenters: list presenters allButFirst ].
+	shouldSelectFocus ifTrue: [ 
+		self selectItem: CrTodoList focus ]
+]
+
 { #category : #accessing }
 CrTodoListIndexPanel >> selectItem: aTodoList [
 
@@ -243,6 +276,14 @@ CrTodoListIndexPanel >> shownArchived [
 ]
 
 { #category : #actions }
+CrTodoListIndexPanel >> toggleSearchPanel [
+
+	CrTodoList search hasElements
+		ifTrue: [ self addSearchPanel ]
+		ifFalse: [ self removeSearchPanel ]
+]
+
+{ #category : #actions }
 CrTodoListIndexPanel >> toggleShownArchived [
 
 	showArchivedButton state: showArchivedButton state not
@@ -251,8 +292,7 @@ CrTodoListIndexPanel >> toggleShownArchived [
 { #category : #private }
 CrTodoListIndexPanel >> visibleListPresenters [
 		
-	^ self visibleLists collect: [ :each | 
-		self instantiate: CrTodoListIndexSummaryPanel on: each  ]
+	^ self visibleLists collect: [ :each | self newPanelFor: each ]
 ]
 
 { #category : #accessing }

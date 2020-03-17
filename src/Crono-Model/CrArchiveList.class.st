@@ -8,12 +8,6 @@ Class {
 }
 
 { #category : #accessing }
-CrArchiveList >> name [
-
-	^ self type name
-]
-
-{ #category : #accessing }
 CrArchiveList >> summaryString [
 
 	^ ''

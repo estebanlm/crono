@@ -1,3 +1,6 @@
+"
+I am an ""add task"": I am used usually as a dialog to add tasks to a list.
+"
 Class {
 	#name : #CrTodoAddTaskPanel,
 	#superclass : #CrTodoTaskPanel,

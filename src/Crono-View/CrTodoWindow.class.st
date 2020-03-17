@@ -42,6 +42,12 @@ CrTodoWindow class >> defaultSpec [
 ]
 
 { #category : #accessing }
+CrTodoWindow >> activeTask [
+
+	^ listPanel presenter activeTask
+]
+
+{ #category : #accessing }
 CrTodoWindow >> activeTodoList [
 
 	^ listPanel presenter activeTodoList
@@ -134,7 +140,9 @@ CrTodoWindow >> initializePresenters [
 CrTodoWindow >> initializeSearchField [
 
 	searchField := self newSearchInput
+		autoAccept: true;
 		help: 'Search...';
+		whenTextChangedDo: [ :text | self searchText: text ];
 		yourself
 ]
 
@@ -169,6 +177,20 @@ CrTodoWindow >> noteTask: aNotification [
 	"... and I maybe need to refresh the header"
 	self activeTodoList showsCompletion ifFalse: [ ^ self ].
 	self updateListPanel: self activeTodoList
+]
+
+{ #category : #actions }
+CrTodoWindow >> searchText: aString [
+
+	(CrSearchTextCommand forContext: self) 
+		searchText: aString;
+		execute
+]
+
+{ #category : #testing }
+CrTodoWindow >> shownArchived [
+	
+	^ listPanel presenter shownArchived
 ]
 
 { #category : #initialization }

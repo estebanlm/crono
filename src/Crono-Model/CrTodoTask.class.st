@@ -23,6 +23,13 @@ CrTodoTask class >> findTasksDoneBetween: start and: end [
 	^ self selectMany: [ :each | (each doneDate >= startTS) & (each doneDate <= endTS) ]
 ]
 
+{ #category : #accessing }
+CrTodoTask class >> findTasksMatching: aRegexString [
+
+	^ self selectMany: [ :each | 
+			(each name matchesRegex: aRegexString) | (each notes matchesRegex: aRegexString) ]
+]
+
 { #category : #testing }
 CrTodoTask class >> isVoyageRoot [
 

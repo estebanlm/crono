@@ -1,3 +1,6 @@
+"
+I am an ""edit task"": I am used usually as a dialog to edits a task.
+"
 Class {
 	#name : #CrTodoEditTaskPanel,
 	#superclass : #CrTodoTaskPanel,

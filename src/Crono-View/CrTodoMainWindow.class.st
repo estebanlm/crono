@@ -11,12 +11,6 @@ Class {
 	#category : #'Crono-View-Todo'
 }
 
-{ #category : #'as yet unclassified' }
-CrTodoMainWindow >> activeTask [
-
-	^ listPanel presenter activeTask
-]
-
 { #category : #initialization }
 CrTodoMainWindow >> initialize [
 
@@ -84,10 +78,4 @@ CrTodoMainWindow >> menuBar: aMenuPresenter [
 CrTodoMainWindow >> rebuildMenuBar [
 
 	self installMainMenuInWindow
-]
-
-{ #category : #'as yet unclassified' }
-CrTodoMainWindow >> shownArchived [
-	
-	^ listPanel presenter shownArchived
 ]

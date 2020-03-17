@@ -48,10 +48,10 @@ CrTodoType class >> life [
 	^ CrTodoTypeLife uniqueInstance
 ]
 
-{ #category : #'ston-core' }
-CrTodoType class >> stonName [
+{ #category : #accessing }
+CrTodoType class >> search [
 
-	^ 'Type'
+	^ CrTodoTypeSearch uniqueInstance
 ]
 
 { #category : #'instance creation' }
@@ -121,20 +121,6 @@ CrTodoType >> showsFocus [
 CrTodoType >> showsPendingSize [
 
 	^ false
-]
-
-{ #category : #'ston persistence' }
-CrTodoType >> stonContainSubObjects [
- 
-	^ false
-]
-
-{ #category : #'ston persistence' }
-CrTodoType >> stonOn: stonWriter [
-	
-	stonWriter
-		writeObject: CrTodoType basicNew
-		listSingleton: self name asSymbol
 ]
 
 { #category : #accessing }

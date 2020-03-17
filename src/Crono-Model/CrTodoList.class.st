@@ -18,9 +18,21 @@ Class {
 }
 
 { #category : #accessing }
+CrTodoList class >> activeLists [
+	
+	^ self allLists reject: #isArchived
+]
+
+{ #category : #accessing }
 CrTodoList class >> allLists [
 	
 	^ self baseLists, self userLists
+]
+
+{ #category : #accessing }
+CrTodoList class >> archivedLists [
+
+	^ self allLists select: #isArchived
 ]
 
 { #category : #accessing }
@@ -96,6 +108,12 @@ CrTodoList class >> newType: aListType [
 	^ self basicNew
 		initializeType: aListType;
 		yourself
+]
+
+{ #category : #accessing }
+CrTodoList class >> search [
+
+	^ CrSearchList uniqueInstance
 ]
 
 { #category : #accessing }

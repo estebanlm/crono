@@ -44,6 +44,12 @@ CrVirtualList >> listForAddTask [
 	^ CrTodoList inbox
 ]
 
+{ #category : #accessing }
+CrVirtualList >> name [
+
+	^ self type name
+]
+
 { #category : #initialization }
 CrVirtualList >> onApplicationStart: anApplication [
 	"Override this if the virtual list needs some initialization on startup"

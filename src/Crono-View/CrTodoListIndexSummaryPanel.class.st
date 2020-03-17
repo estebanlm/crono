@@ -1,3 +1,8 @@
+"
+I am a panel to show a summary of a todo list.
+I am meant to be shown as the index of todo lists.
+Summary contains: icon, title and maybe other details.
+"
 Class {
 	#name : #CrTodoListIndexSummaryPanel,
 	#superclass : #SpPresenter,
