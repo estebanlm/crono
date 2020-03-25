@@ -52,7 +52,7 @@ CrReviewWindow >> configurationClass [
 { #category : #actions }
 CrReviewWindow >> copyToClipboard [
 
-	Clipboard clipboardText: reportText text asString
+	GtkClipboard forSelection text: reportText text asString
 ]
 
 { #category : #private }
