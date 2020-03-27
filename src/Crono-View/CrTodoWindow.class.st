@@ -140,7 +140,6 @@ CrTodoWindow >> initializePresenters [
 CrTodoWindow >> initializeSearchField [
 
 	searchField := self newSearchInput
-		autoAccept: true;
 		help: 'Search...';
 		whenTextChangedDo: [ :text | self searchText: text ];
 		yourself

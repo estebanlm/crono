@@ -40,7 +40,6 @@ CrTodoTaskPanel >> initializePresenters [
 
 	doneCheckbox := self newCheckBox.
 	nameTextInput := self newTextInput
-		autoAccept: true;
 		placeholder: 'A Task name';
 		yourself.
 	notesText := self newText

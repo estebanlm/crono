@@ -94,7 +94,7 @@ CrRequestDialog >> initializeDialogWindow: aDialogWindowPresenter [
 CrRequestDialog >> initializePresenters [
 
 	label := self newLabel.
-	textInput := self newTextInput autoAccept: true
+	textInput := self newTextInput
 ]
 
 { #category : #initialization }

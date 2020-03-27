@@ -71,7 +71,6 @@ CrReviewWindow >> initialDays [
 CrReviewWindow >> initializePresenters [
 
 	daysInput := self newNumberInput 
-		autoAccept: true;
 		number: self initialDays.
 	refreshButton := self newButton 
 		label: 'Review';

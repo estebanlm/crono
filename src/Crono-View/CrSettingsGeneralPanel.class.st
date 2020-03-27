@@ -30,7 +30,6 @@ CrSettingsGeneralPanel class >> order [
 CrSettingsGeneralPanel >> initializePresenters [
 
 	autoArchiveNumber := self newNumberInput
-		autoAccept: true;
 		number: self settings autoArchiveAfterDays;
 		rangeMinimum: 1 maximum: 365;
 		whenTextChangedDo: [ :text | 
