@@ -51,7 +51,7 @@ CrMoveToDialog >> initializeWindow: aWindowPresenter [
 { #category : #accessing }
 CrMoveToDialog >> lists [
 
-	^ CrTodoList lists copyWithout: self todoList
+	^ CrTodoList activeLists copyWithout: self todoList
 ]
 
 { #category : #actions }
