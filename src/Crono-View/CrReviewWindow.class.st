@@ -78,7 +78,7 @@ CrReviewWindow >> initializePresenters [
 		yourself.
 	toolBar := self newToolBar
 		beIcons;
-		addItem: (SpToolBarButton new
+		addItem: (SpToolBarButtonPresenter new
 			label: 'Copy';
 			icon: (self iconNamed: #smallCopy);
 			help: 'Copy to clipboard';
