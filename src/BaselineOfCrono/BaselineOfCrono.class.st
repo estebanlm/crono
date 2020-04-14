@@ -12,13 +12,14 @@ BaselineOfCrono >> baseline: spec [
 
 		self ztimestamp: spec.
 		self voyage: spec.
+		self persistenceQuery: spec.
 		self marsGtk: spec.
 		self objCBridge: spec.
 		self macPack: spec.
 
 		spec 
 			package: 'Crono-Model' with: [ 
-				spec requires: #('ZTimestamp' 'Voyage') ];
+				spec requires: #('ZTimestamp' 'Voyage' 'PersistenceQuery') ];
 			package: 'Crono-View';
 			package: 'Crono-Tests' ]
 ]
@@ -53,6 +54,17 @@ BaselineOfCrono >> objCBridge: spec [
 	spec
 		baseline: 'ObjCBridge'
 		with: [ spec repository: 'github://estebanlm/objcbridge' ]
+]
+
+{ #category : #'external projects' }
+BaselineOfCrono >> persistenceQuery: spec [
+
+	spec
+		baseline: 'PersistenceQuery'
+		with: [ 
+			spec 
+				loads: #('ejdb');
+				repository: 'github://pharo-nosql/PersistenceQuery' ]
 ]
 
 { #category : #'external projects' }
