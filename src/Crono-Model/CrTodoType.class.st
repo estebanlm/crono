@@ -7,7 +7,7 @@ Class {
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Todo'
 }
 
 { #category : #accessing }

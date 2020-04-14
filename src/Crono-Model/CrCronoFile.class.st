@@ -4,7 +4,7 @@ I log to a text file.
 Class {
 	#name : #CrCronoFile,
 	#superclass : #CrCrono,
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Crono'
 }
 
 { #category : #actions }

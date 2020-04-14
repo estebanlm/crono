@@ -4,7 +4,7 @@ I'm a list type archive.
 Class {
 	#name : #CrTodoTypeArchive,
 	#superclass : #CrTodoType,
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Todo'
 }
 
 { #category : #accessing }

@@ -5,7 +5,7 @@ Class {
 		'fromDate',
 		'toDate'
 	],
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Crono'
 }
 
 { #category : #'instance creation' }

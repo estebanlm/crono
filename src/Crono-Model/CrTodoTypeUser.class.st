@@ -4,7 +4,7 @@ I'm a list type user.
 Class {
 	#name : #CrTodoTypeUser,
 	#superclass : #CrTodoType,
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Todo'
 }
 
 { #category : #accessing }

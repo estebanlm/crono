@@ -1,12 +1,18 @@
+"
+I am a ""crono task"": a task that is independent of a todo list.
+It happens often that you work on a task you forgot to add to the list (or simply you do not consider it worth of being there), but you still want to register that activity. 
+Well, I am used for that :)
+"
 Class {
 	#name : #CrCronoTask,
 	#superclass : #Object,
 	#instVars : [
 		'doneDate',
 		'notes',
-		'tags'
+		'tags',
+		'pomodoroTasks'
 	],
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Crono'
 }
 
 { #category : #accessing }
@@ -36,12 +42,13 @@ CrCronoTask class >> voyageCollectionName [
 CrCronoTask class >> voyageDoneDate [
 	<voyageDescription>
 	
-	^ VOToOneDescription new 
-		attributeName: 'doneDate';
+	^ VOToManyDescription new 
+		attributeName: 'pomodoroTasks';
+		kindCollection: OrderedCollection;
 		accessor: (MAPluggableAccessor 
-			read: [ :aTask | aTask doneDate ifNotNil: #asString ]
-			write: [ :aTask :date | 
-				date ifNotNil: [ aTask setDoneDate: (ZTimestamp fromString: date) ] ]);
+			read: [ :aTask | aTask pomodoroTasks ]
+			write: [ :aTask :pomodoroTasks | 
+				pomodoroTasks ifNotNil: [ aTask pomodoroTasks: pomodoroTasks ] ]);
 		yourself
 ]
 
@@ -59,6 +66,14 @@ CrCronoTask class >> voyageTags [
 		attributeName: 'tags';
 		kindCollection: Array;
 		yourself
+]
+
+{ #category : #pomodoro }
+CrCronoTask >> addPomodoroTask: aPomodoroTask [
+
+	pomodoroTasks ifNil: [ pomodoroTasks := OrderedCollection new ].
+	pomodoroTasks add: aPomodoroTask.
+	self save
 ]
 
 { #category : #private }
@@ -85,6 +100,12 @@ CrCronoTask >> isDone [
 	^ doneDate notNil
 ]
 
+{ #category : #pomodoro }
+CrCronoTask >> newPomodoro [
+
+	^ CrPomodoroTask newTask: self
+]
+
 { #category : #accessing }
 CrCronoTask >> notes [
 
@@ -95,6 +116,18 @@ CrCronoTask >> notes [
 CrCronoTask >> notes: aString [
 
 	notes := aString
+]
+
+{ #category : #pomodoro }
+CrCronoTask >> pomodoroName [
+
+	^ self notes lines first
+]
+
+{ #category : #pomodoro }
+CrCronoTask >> pomodoroTasks [
+
+	^ pomodoroTasks	
 ]
 
 { #category : #printing }
@@ -140,6 +173,13 @@ CrCronoTask >> save [
 CrCronoTask >> setDoneDate: aZTimestamp [
 	
 	doneDate := aZTimestamp
+]
+
+{ #category : #pomodoro }
+CrCronoTask >> setPomodoroTasks: aCollection [
+
+	aCollection do: [ :each | each ownerTask: self ].
+	pomodoroTasks := aCollection
 ]
 
 { #category : #accessing }

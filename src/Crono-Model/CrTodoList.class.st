@@ -14,7 +14,7 @@ Class {
 		'tasks',
 		'archived'
 	],
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Todo'
 }
 
 { #category : #accessing }

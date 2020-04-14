@@ -11,7 +11,7 @@ Class {
 		'focused',
 		'archived'
 	],
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Todo'
 }
 
 { #category : #accessing }

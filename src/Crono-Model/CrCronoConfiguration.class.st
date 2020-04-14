@@ -11,7 +11,7 @@ Class {
 	#instVars : [
 		'baseDir'
 	],
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Crono'
 }
 
 { #category : #accessing }

@@ -20,6 +20,7 @@ CrGtkConfiguration >> commonStyle [
 .list { padding: 5px }
 .listNameLabel { color: LightSlateGrey; font-size: smaller; margin-right: 3px }
 .markFocus { margin-right: 3px }
+.pomodoroSurpassedTime { color: red }
 '
 ]
 
@@ -82,6 +83,7 @@ CrGtkConfiguration >> macStyle [
 
 	^ '
 .cronoText { font: 12pt "Monaco" }
+.pomodoroTime { font: 32pt "Monaco" }
 '
 ]
 
@@ -114,6 +116,7 @@ CrGtkConfiguration >> unixStyle [
 
 	^ '
 .cronoText { font: 11pt "Monospace Regular" }
+.pomodoroTime { font: 32pt "Monospace Regular" }
 '
 ]
 
@@ -128,6 +131,7 @@ CrGtkConfiguration >> windowsStyle [
 
 	^ '
 .cronoText { font: 10pt "Microsoft Sans Serif" }
+.pomodoroTime { font: 32pt "Microsoft Sans Serif" }
 '
 ]
 

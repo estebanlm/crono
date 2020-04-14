@@ -4,7 +4,7 @@ I'm a list type focus.
 Class {
 	#name : #CrTodoTypeFocus,
 	#superclass : #CrTodoType,
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Todo'
 }
 
 { #category : #accessing }

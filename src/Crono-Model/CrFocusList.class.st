@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'tasksCache'
 	],
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Todo'
 }
 
 { #category : #accessing }

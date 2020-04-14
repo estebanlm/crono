@@ -4,7 +4,7 @@ I'm a list type ""life"" (general life tasks).
 Class {
 	#name : #CrTodoTypeLife,
 	#superclass : #CrTodoType,
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Todo'
 }
 
 { #category : #accessing }

@@ -4,7 +4,7 @@ I'm a list type unsorted.
 Class {
 	#name : #CrTodoTypeUnsorted,
 	#superclass : #CrTodoType,
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Todo'
 }
 
 { #category : #accessing }

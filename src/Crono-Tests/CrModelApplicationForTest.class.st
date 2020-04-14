@@ -19,7 +19,7 @@ CrModelApplicationForTest >> initializeCronoRepository [
 { #category : #initialization }
 CrModelApplicationForTest >> initializeRepository [
 	
-	repository := VOUnQLiteRepository onMemory.
+	repository := VoEJDBRepository onTruncate: FileLocator imageDirectory / 'crono-test.edb'.
 	CrTodoList newBaseLists 
 		do: [ :each | repository save: each ]
 ]

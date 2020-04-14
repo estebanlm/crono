@@ -8,7 +8,7 @@ Class {
 		'searchText',
 		'tasks'
 	],
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Todo'
 }
 
 { #category : #testing }

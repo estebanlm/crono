@@ -5,7 +5,7 @@ My childrne define whether this is a real list or a virtual, but in any case I h
 Class {
 	#name : #CrAbstractList,
 	#superclass : #Object,
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Todo'
 }
 
 { #category : #actions }

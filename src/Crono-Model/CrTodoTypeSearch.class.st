@@ -4,7 +4,7 @@ I'm a list type search... to show search results.
 Class {
 	#name : #CrTodoTypeSearch,
 	#superclass : #CrTodoType,
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Todo'
 }
 
 { #category : #accessing }

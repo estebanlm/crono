@@ -16,6 +16,12 @@ Class {
 	#category : #'Crono-View-Base'
 }
 
+{ #category : #accessing }
+CrPresenter class >> currentApplication [ 
+
+	^ CrApplication current
+]
+
 { #category : #'instance creation' }
 CrPresenter class >> new [
 

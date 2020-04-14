@@ -4,7 +4,7 @@ I'm a list type inbox.
 Class {
 	#name : #CrTodoTypeInbox,
 	#superclass : #CrTodoType,
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Todo'
 }
 
 { #category : #accessing }

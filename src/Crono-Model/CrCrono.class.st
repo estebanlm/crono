@@ -10,7 +10,7 @@ Class {
 	#classVars : [
 		'ActiveClass'
 	],
-	#category : #'Crono-Model'
+	#category : #'Crono-Model-Crono'
 }
 
 { #category : #accessing }
