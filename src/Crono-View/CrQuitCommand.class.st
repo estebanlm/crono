@@ -19,3 +19,15 @@ CrQuitCommand class >> defaultShortcut [
 
 	^ $q platformMeta
 ]
+
+{ #category : #executing }
+CrQuitCommand >> execute [
+
+	self application isStandalone ifFalse: [ 
+		UIManager default defer: [ self inform: 'Quitting... Nah!' ].
+		^ self ].
+	
+	Smalltalk 
+		snapshot: false 
+		andQuit: true
+]
