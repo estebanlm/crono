@@ -1,3 +1,7 @@
+"
+I am a pomodoro window.
+In the system, there can be only one active at a time (this will be handled in the main window)
+"
 Class {
 	#name : #CrPomodoroWindow,
 	#superclass : #CrPresenter,
@@ -67,7 +71,7 @@ CrPomodoroWindow >> configurationClass [
 { #category : #accessing }
 CrPomodoroWindow >> currentTimer [
 
-	^ currentTimer ifNil: [ currentTimer := pomodoroTask timer ]
+	^ currentTimer ifNil: [ currentTimer := pomodoroTask newTimer ]
 ]
 
 { #category : #initialization }
@@ -117,8 +121,7 @@ CrPomodoroWindow >> remainingTimeString [
 { #category : #'accessing model' }
 CrPomodoroWindow >> setModelBeforeInitialization: aPomodoroTask [
 
-	pomodoroTask := aPomodoroTask.
-	pomodoroTask onTick: [ self updatePresenter ]
+	pomodoroTask := aPomodoroTask
 ]
 
 { #category : #initialization }
@@ -132,7 +135,8 @@ CrPomodoroWindow >> settings [
 CrPomodoroWindow >> start [
 
 	self basicStop.
-	currentTimer := pomodoroTask timer.
+	currentTimer := pomodoroTask newTimer.
+	currentTimer onTick: [ self updatePresenter ].
 	currentTimer start
 ]
 

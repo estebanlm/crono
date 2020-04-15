@@ -1,10 +1,15 @@
+"
+I am a pomodoro task.
+I have a start date and a completion status. 
+
+For integrity, I should persist just completed tasks.
+"
 Class {
 	#name : #CrPomodoroTask,
 	#superclass : #Object,
 	#instVars : [
-		'timer',
 		'ownerTask',
-		'timeStart',
+		'startDate',
 		'completed'
 	],
 	#category : #'Crono-Model-Pomodoro'
@@ -28,6 +33,19 @@ CrPomodoroTask class >> voyageOwnerTask [
 ]
 
 { #category : #persistence }
+CrPomodoroTask class >> voyageStartDate [
+	<voyageDescription>
+	
+	^ VOToOneDescription new 
+		attributeName: 'startDate';
+		accessor: (MAPluggableAccessor 
+			read: [ :aTask | aTask startDate ifNotNil: #asString ]
+			write: [ :aTask :date | 
+				date ifNotNil: [ aTask setStartDate: (ZTimestamp fromString: date) ] ]);
+		yourself
+]
+
+{ #category : #persistence }
 CrPomodoroTask class >> voyageTick [
 	<voyageDescription>
 	
@@ -36,10 +54,16 @@ CrPomodoroTask class >> voyageTick [
 		yourself
 ]
 
+{ #category : #accessing }
+CrPomodoroTask >> beCompleted [
+
+	completed := true
+]
+
 { #category : #private }
 CrPomodoroTask >> completed [ 
 
-	completed := true.
+	self beCompleted.
 	self ownerTask addPomodoroTask: self copy
 ]
 
@@ -47,15 +71,13 @@ CrPomodoroTask >> completed [
 CrPomodoroTask >> initialize [
 
 	super initialize.
-	completed := false.
-	timer := CrPomodoroTimer newDuration: self settings pomodoroDuration.
-	timer onCompleted: [ self completed ]
+	completed := false
 ]
 
 { #category : #testing }
-CrPomodoroTask >> isStopped [
+CrPomodoroTask >> isCompleted [ 
 
-	^ timer isStopped
+	^ completed
 ]
 
 { #category : #accessing }
@@ -64,10 +86,14 @@ CrPomodoroTask >> name [
 	^ self ownerTask pomodoroName
 ]
 
-{ #category : #events }
-CrPomodoroTask >> onTick: aBlock [
-
-	timer onTick: aBlock
+{ #category : #'instance creation' }
+CrPomodoroTask >> newTimer [ 
+	| timer |
+	
+	timer := CrPomodoroTimer newDuration: self settings pomodoroDuration.
+	timer onCompleted: [ self completed ].
+	
+	^ timer
 ]
 
 { #category : #accessing }
@@ -82,10 +108,10 @@ CrPomodoroTask >> ownerTask: aTask [
 	ownerTask := aTask
 ]
 
-{ #category : #accessing }
-CrPomodoroTask >> remainingTime [
-	
-	^ timer remainingTime
+{ #category : #private }
+CrPomodoroTask >> setStartDate: aTimestamp [
+
+	startDate := aTimestamp
 ]
 
 { #category : #initialization }
@@ -94,21 +120,8 @@ CrPomodoroTask >> settings [
 	^ CrPomodoroConfiguration readFromFileSystem
 ]
 
-{ #category : #actions }
-CrPomodoroTask >> start [
-
-	timer start.
-	timeStart := ZTimestamp now	
-]
-
-{ #category : #actions }
-CrPomodoroTask >> stop [
-
-	timer stop
-]
-
 { #category : #accessing }
-CrPomodoroTask >> timer [
+CrPomodoroTask >> startDate [
 
-	^ timer
+	^ startDate
 ]

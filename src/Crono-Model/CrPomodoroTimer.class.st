@@ -96,6 +96,7 @@ CrPomodoroTimer >> reset [
 { #category : #'start-stop' }
 CrPomodoroTimer >> start [
 
+	self reset.
 	service start
 ]
 
@@ -103,7 +104,8 @@ CrPomodoroTimer >> start [
 CrPomodoroTimer >> stop [
 
 	self reset.
-	service stop
+	service isRunning 
+		ifTrue: [ service stop ]
 ]
 
 { #category : #private }
