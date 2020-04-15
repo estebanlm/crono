@@ -1,6 +1,13 @@
+"
+I am a task in a todo list.
+A task has different properties: title, description, start date and last modification date.
+It has also a done (completion) date and a status (completed or not).
+"
 Class {
 	#name : #CrTodoTask,
 	#superclass : #Object,
+	#traits : 'CrTPomodoroContainer',
+	#classTraits : 'CrTPomodoroContainer classTrait',
 	#instVars : [
 		'owner',
 		'name',
@@ -248,6 +255,12 @@ CrTodoTask >> owner [
 CrTodoTask >> owner: aTodoList [
 
 	owner := aTodoList
+]
+
+{ #category : #accessing }
+CrTodoTask >> pomodoroName [
+
+	^ self name
 ]
 
 { #category : #printing }

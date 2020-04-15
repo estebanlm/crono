@@ -82,6 +82,10 @@ CrTodoListPanel >> contextMenuActions [
 			register: (CrTodoAddTaskCommand forSpecContext: self);
 			register: (CrTodoTaskMoveCommand forSpecContext: self);
 			yourself);
+		register: ((CmCommandGroup named: 'Pomodoro') asSpecGroup
+			beDisplayedAsGroup;
+			register: (CrTodoTaskStartPomodoroCommand forSpecContext: self);
+			yourself);
 		register: ((CmCommandGroup named: 'Management') asSpecGroup
 			beDisplayedAsGroup;
 			register: (CrTodoViewArchivedCommand forSpecContext: self);

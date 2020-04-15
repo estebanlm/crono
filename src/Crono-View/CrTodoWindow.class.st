@@ -69,6 +69,7 @@ CrTodoWindow >> allKeyBindingActions [
 		register: (CrTodoReviewCronoCommand forSpecContext: self);
 		register: (CrTodoAddTaskCommand forSpecContext: self);
 		register: (CrTodoAddListCommand forSpecContext: self);
+		register: (CrTodoTaskStartPomodoroCommand forSpecContext: self);
 		yourself
 ]
 

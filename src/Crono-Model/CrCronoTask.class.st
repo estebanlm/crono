@@ -6,11 +6,12 @@ Well, I am used for that :)
 Class {
 	#name : #CrCronoTask,
 	#superclass : #Object,
+	#traits : 'CrTPomodoroContainer',
+	#classTraits : 'CrTPomodoroContainer classTrait',
 	#instVars : [
 		'doneDate',
 		'notes',
-		'tags',
-		'pomodoroTasks'
+		'tags'
 	],
 	#category : #'Crono-Model-Crono'
 }
@@ -42,13 +43,12 @@ CrCronoTask class >> voyageCollectionName [
 CrCronoTask class >> voyageDoneDate [
 	<voyageDescription>
 	
-	^ VOToManyDescription new 
-		attributeName: 'pomodoroTasks';
-		kindCollection: OrderedCollection;
+	^ VOToOneDescription new 
+		attributeName: 'doneDate';
 		accessor: (MAPluggableAccessor 
-			read: [ :aTask | aTask pomodoroTasks ]
-			write: [ :aTask :pomodoroTasks | 
-				pomodoroTasks ifNotNil: [ aTask pomodoroTasks: pomodoroTasks ] ]);
+			read: [ :aTask | aTask doneDate ifNotNil: #asString ]
+			write: [ :aTask :date | 
+				date ifNotNil: [ aTask setDoneDate: (ZTimestamp fromString: date) ] ]);
 		yourself
 ]
 
@@ -66,14 +66,6 @@ CrCronoTask class >> voyageTags [
 		attributeName: 'tags';
 		kindCollection: Array;
 		yourself
-]
-
-{ #category : #pomodoro }
-CrCronoTask >> addPomodoroTask: aPomodoroTask [
-
-	pomodoroTasks ifNil: [ pomodoroTasks := OrderedCollection new ].
-	pomodoroTasks add: aPomodoroTask.
-	self save
 ]
 
 { #category : #private }
@@ -100,12 +92,6 @@ CrCronoTask >> isDone [
 	^ doneDate notNil
 ]
 
-{ #category : #pomodoro }
-CrCronoTask >> newPomodoro [
-
-	^ CrPomodoroTask newTask: self
-]
-
 { #category : #accessing }
 CrCronoTask >> notes [
 
@@ -118,16 +104,10 @@ CrCronoTask >> notes: aString [
 	notes := aString
 ]
 
-{ #category : #pomodoro }
+{ #category : #accessing }
 CrCronoTask >> pomodoroName [
 
 	^ self notes lines first
-]
-
-{ #category : #pomodoro }
-CrCronoTask >> pomodoroTasks [
-
-	^ pomodoroTasks	
 ]
 
 { #category : #printing }
@@ -173,13 +153,6 @@ CrCronoTask >> save [
 CrCronoTask >> setDoneDate: aZTimestamp [
 	
 	doneDate := aZTimestamp
-]
-
-{ #category : #pomodoro }
-CrCronoTask >> setPomodoroTasks: aCollection [
-
-	aCollection do: [ :each | each ownerTask: self ].
-	pomodoroTasks := aCollection
 ]
 
 { #category : #accessing }
