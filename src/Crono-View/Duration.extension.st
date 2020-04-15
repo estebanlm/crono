@@ -1,7 +1,7 @@
 Extension { #name : #Duration }
 
 { #category : #'*Crono-View' }
-Duration >> MMSS [
+Duration >> mmss [
 
 	^ String streamContents: [ :stream | 
 		self printMMSSOn: stream ]

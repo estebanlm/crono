@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'timer',
-		'ownerTask'
+		'ownerTask',
+		'timeStart',
+		'completed'
 	],
 	#category : #'Crono-Model-Pomodoro'
 }
@@ -16,17 +18,38 @@ CrPomodoroTask class >> newTask: aTask [
 		yourself
 ]
 
-{ #category : #initialization }
-CrPomodoroTask >> initialize [
+{ #category : #persistence }
+CrPomodoroTask class >> voyageOwnerTask [
+	<voyageDescription>
 	
-	super initialize.
-	timer := CrPomodoroTimer newDuration: self settings pomodoroDuration
+	^ VOTransientDescription new 
+		attributeName: 'ownerTask';
+		yourself
 ]
 
-{ #category : #testing }
-CrPomodoroTask >> isFinished [
+{ #category : #persistence }
+CrPomodoroTask class >> voyageTick [
+	<voyageDescription>
+	
+	^ VOTransientDescription new 
+		attributeName: 'timer';
+		yourself
+]
 
-	^ timer isFinished
+{ #category : #private }
+CrPomodoroTask >> completed [ 
+
+	completed := true.
+	self ownerTask addPomodoroTask: self copy
+]
+
+{ #category : #initialization }
+CrPomodoroTask >> initialize [
+
+	super initialize.
+	completed := false.
+	timer := CrPomodoroTimer newDuration: self settings pomodoroDuration.
+	timer onCompleted: [ self completed ]
 ]
 
 { #category : #testing }
@@ -39,6 +62,12 @@ CrPomodoroTask >> isStopped [
 CrPomodoroTask >> name [
 
 	^ self ownerTask pomodoroName
+]
+
+{ #category : #events }
+CrPomodoroTask >> onTick: aBlock [
+
+	timer onTick: aBlock
 ]
 
 { #category : #accessing }
@@ -68,11 +97,18 @@ CrPomodoroTask >> settings [
 { #category : #actions }
 CrPomodoroTask >> start [
 
-	timer start
+	timer start.
+	timeStart := ZTimestamp now	
 ]
 
 { #category : #actions }
 CrPomodoroTask >> stop [
 
 	timer stop
+]
+
+{ #category : #accessing }
+CrPomodoroTask >> timer [
+
+	^ timer
 ]

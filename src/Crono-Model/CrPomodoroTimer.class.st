@@ -1,13 +1,27 @@
+"
+I am a timer to be used on pomodoro tasks.
+I have a duration and a remainingDuration.
+I can be started and stopped.
+I ""tick"" each second.
+"
 Class {
 	#name : #CrPomodoroTimer,
 	#superclass : #Object,
 	#instVars : [
 		'duration',
 		'remainingDuration',
-		'service'
+		'service',
+		'tickAction',
+		'completedAction'
 	],
 	#category : #'Crono-Model-Pomodoro'
 }
+
+{ #category : #'instance creation' }
+CrPomodoroTimer class >> new [
+
+	self error: 'Use #newDuration:'
+]
 
 { #category : #'instance creation' }
 CrPomodoroTimer class >> newDuration: aDuration [
@@ -34,25 +48,37 @@ CrPomodoroTimer >> initialize [
 { #category : #initialization }
 CrPomodoroTimer >> initializeDuration: aDuration [
 
+	self duration: aDuration.	
 	self initialize.
-	self duration: aDuration
+
 ]
 
 { #category : #initialization }
 CrPomodoroTimer >> initializeService [
 
-	service := TKTParameterizableService new.
-	service name: 'Pomodoro tick service'.
-	service stepDelay: 1 second.
-	"service onSetUpDo: [ Transcript show: 'File watcher started' ].
-	service onTearDownDo: [ Transcript show: 'File watcher finished' ]."
-	service step: [ self tick ].
+	service := TKTParameterizableService new
+		name: ('Pomodoro: {1}' format: { duration mmss }) ;
+		stepDelay: 1 second;
+		step: [ self tick ];
+		yourself
 ]
 
 { #category : #testing }
 CrPomodoroTimer >> isStopped [
 
 	^ service isRunning not
+]
+
+{ #category : #events }
+CrPomodoroTimer >> onCompleted: aBlock [
+
+	completedAction := aBlock
+]
+
+{ #category : #events }
+CrPomodoroTimer >> onTick: aBlock [
+
+	tickAction := aBlock
 ]
 
 { #category : #accessing }
@@ -76,12 +102,18 @@ CrPomodoroTimer >> start [
 { #category : #'start-stop' }
 CrPomodoroTimer >> stop [
 
+	self reset.
 	service stop
 ]
 
 { #category : #private }
 CrPomodoroTimer >> tick [
 
-	remainingDuration := remainingDuration - 1.
-	self notificationCenter notify: CrPomodoroTick
+	remainingDuration := remainingDuration - 1 second.
+	tickAction ifNotNil: [ 
+		tickAction cull: self ].
+	
+	remainingDuration = 0 asDuration ifTrue: [ 
+		completedAction ifNotNil: [ 
+			completedAction cull: self ] ]
 ]

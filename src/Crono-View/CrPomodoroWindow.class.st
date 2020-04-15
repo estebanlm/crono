@@ -8,7 +8,9 @@ Class {
 		'breakButton',
 		'longBreakButton',
 		'stopButton',
-		'pomodoroTask'
+		'pomodoroTask',
+		'currentTimer',
+		'settings'
 	],
 	#category : #'Crono-View-Pomodoro'
 }
@@ -41,10 +43,31 @@ CrPomodoroWindow class >> defaultSpec [
 		yourself
 ]
 
+{ #category : #private }
+CrPomodoroWindow >> basicStop [
+
+	currentTimer ifNotNil: [ currentTimer stop ]
+]
+
+{ #category : #actions }
+CrPomodoroWindow >> break [
+
+	self basicStop.
+	currentTimer := CrPomodoroTimer newDuration: self settings breakDuration.
+	currentTimer onTick: [ self updatePresenter ].
+	currentTimer start
+]
+
 { #category : #initialization }
 CrPomodoroWindow >> configurationClass [
 	
 	^ CrPomodoroConfiguration
+]
+
+{ #category : #accessing }
+CrPomodoroWindow >> currentTimer [
+
+	^ currentTimer ifNil: [ currentTimer := pomodoroTask timer ]
 ]
 
 { #category : #initialization }
@@ -55,22 +78,70 @@ CrPomodoroWindow >> initializePresenters [
 		addStyle: 'pomodoroTime';
 		label: self remainingTimeString;
 		yourself.
-	startButton  := self newButton label: 'Start'.
-	breakButton := self newButton label: 'Break'.
-	longBreakButton := self newButton label: 'Long Break'.
-	stopButton := self newButton label: 'Stop'
+	startButton  := self newButton 
+		label: self settings pomodoroDuration mmss;
+		action: [ self start ];
+		yourself.
+	breakButton := self newButton 
+		label: self settings breakDuration mmss;
+		action: [ self break ].
+	longBreakButton := self newButton 
+		label: self settings longBreakDuration mmss;
+		action: [ self longBreak ].
+	stopButton := self newButton 
+		label: 'Stop';
+		action: [ self stop ]
+]
+
+{ #category : #actions }
+CrPomodoroWindow >> longBreak [
+
+	self basicStop.
+	currentTimer := CrPomodoroTimer newDuration: self settings longBreakDuration.
+	currentTimer onTick: [ self updatePresenter ].
+	currentTimer start
+]
+
+{ #category : #accessing }
+CrPomodoroWindow >> remainingTime [
+
+	^ self currentTimer remainingTime
 ]
 
 { #category : #accessing }
 CrPomodoroWindow >> remainingTimeString [
 
-	^ pomodoroTask remainingTime MMSS
+	^ self remainingTime mmss
 ]
 
 { #category : #'accessing model' }
 CrPomodoroWindow >> setModelBeforeInitialization: aPomodoroTask [
 
-	pomodoroTask := aPomodoroTask
+	pomodoroTask := aPomodoroTask.
+	pomodoroTask onTick: [ self updatePresenter ]
+]
+
+{ #category : #initialization }
+CrPomodoroWindow >> settings [ 
+
+	^ settings ifNil: [ 
+		settings := CrPomodoroConfiguration readFromFileSystem ]
+]
+
+{ #category : #actions }
+CrPomodoroWindow >> start [
+
+	self basicStop.
+	currentTimer := pomodoroTask timer.
+	currentTimer start
+]
+
+{ #category : #actions }
+CrPomodoroWindow >> stop [
+
+	self basicStop.
+	currentTimer := nil.
+	self updatePresenter
 ]
 
 { #category : #accessing }
@@ -83,4 +154,13 @@ CrPomodoroWindow >> taskName [
 CrPomodoroWindow >> title [
 
 	^ 'Pomodoro'
+]
+
+{ #category : #initialization }
+CrPomodoroWindow >> updatePresenter [
+
+	timeLabel label: self remainingTimeString.
+	self remainingTime < 0 asDuration
+		ifTrue: [ timeLabel addStyle: 'pomodoroSurpassedTime' ]
+		ifFalse: [ timeLabel removeStyle: 'pomodoroSurpassedTime' ]
 ]
