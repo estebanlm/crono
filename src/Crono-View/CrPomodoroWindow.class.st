@@ -136,7 +136,9 @@ CrPomodoroWindow >> start [
 
 	self basicStop.
 	currentTimer := pomodoroTask newTimer.
-	currentTimer onTick: [ self updatePresenter ].
+	currentTimer 
+		onTick: [ self updatePresenter ];
+		onCompleted: [ self wasCompleted ].
 	currentTimer start
 ]
 
@@ -151,7 +153,7 @@ CrPomodoroWindow >> stop [
 { #category : #accessing }
 CrPomodoroWindow >> taskName [
 
-	^ pomodoroTask name
+	^ pomodoroTask name contractTo: 35
 ]
 
 { #category : #initialization }
@@ -167,4 +169,10 @@ CrPomodoroWindow >> updatePresenter [
 	self remainingTime < 0 asDuration
 		ifTrue: [ timeLabel addStyle: 'pomodoroSurpassedTime' ]
 		ifFalse: [ timeLabel removeStyle: 'pomodoroSurpassedTime' ]
+]
+
+{ #category : #private }
+CrPomodoroWindow >> wasCompleted [
+
+	self withWindowDo: [ :each | each beep ]
 ]

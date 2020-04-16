@@ -36,5 +36,5 @@ CrPomodoroTimerTest >> testOnTick [
 	timer onTick: [ completed := completed + 1 ].
 	timer start.
 	3 second wait.
-	self assert: completed equals: 3
+	self assert: completed equals: 4 "ticks on 3, 2, 1, 0"
 ]

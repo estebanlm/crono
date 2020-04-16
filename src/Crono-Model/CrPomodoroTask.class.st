@@ -91,7 +91,9 @@ CrPomodoroTask >> newTimer [
 	| timer |
 	
 	timer := CrPomodoroTimer newDuration: self settings pomodoroDuration.
-	timer onCompleted: [ self completed ].
+	timer 
+		onStarted: [ self started ];
+		onCompleted: [ self completed ].
 	
 	^ timer
 ]
@@ -114,6 +116,12 @@ CrPomodoroTask >> setStartDate: aTimestamp [
 	startDate := aTimestamp
 ]
 
+{ #category : #private }
+CrPomodoroTask >> setStartDateFromString: aString [
+
+	self setStartDate: (aString ifNotNil: [ ZTimestamp fromString: aString ])
+]
+
 { #category : #initialization }
 CrPomodoroTask >> settings [
 
@@ -124,4 +132,10 @@ CrPomodoroTask >> settings [
 CrPomodoroTask >> startDate [
 
 	^ startDate
+]
+
+{ #category : #private }
+CrPomodoroTask >> started [
+
+	self setStartDate: ZTimestamp now
 ]

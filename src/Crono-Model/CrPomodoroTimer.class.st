@@ -7,12 +7,13 @@ I ""tick"" each second.
 Class {
 	#name : #CrPomodoroTimer,
 	#superclass : #Object,
+	#traits : 'SpTObservable',
+	#classTraits : 'SpTObservable classTrait',
 	#instVars : [
-		'duration',
-		'remainingDuration',
-		'service',
-		'tickAction',
-		'completedAction'
+		'#remainingDuration => SpObservableSlot',
+		'#completed => SpObservableSlot',
+		'#duration',
+		'#service'
 	],
 	#category : #'Crono-Model-Pomodoro'
 }
@@ -40,17 +41,18 @@ CrPomodoroTimer >> duration: aDuration [
 
 { #category : #initialization }
 CrPomodoroTimer >> initialize [
-
+	
+	self class initializeSlots: self.
 	super initialize.
-	self initializeService
+	completed := false
 ]
 
 { #category : #initialization }
 CrPomodoroTimer >> initializeDuration: aDuration [
 
-	self duration: aDuration.	
 	self initialize.
-
+	self duration: aDuration.
+	self initializeService
 ]
 
 { #category : #initialization }
@@ -71,14 +73,26 @@ CrPomodoroTimer >> isStopped [
 
 { #category : #events }
 CrPomodoroTimer >> onCompleted: aBlock [
+	
+	self 
+		property: #completed 
+		whenChangedDo: [ :aBoolean | aBoolean ifTrue: aBlock ]
+]
 
-	completedAction := aBlock
+{ #category : #events }
+CrPomodoroTimer >> onStarted: aBlock [
+	
+	self 
+		property: #completed 
+		whenChangedDo: [ :aBoolean | aBoolean ifFalse: aBlock ]
 ]
 
 { #category : #events }
 CrPomodoroTimer >> onTick: aBlock [
 
-	tickAction := aBlock
+	self 
+		property: #remainingDuration 
+		whenChangedDo: aBlock
 ]
 
 { #category : #accessing }
@@ -90,7 +104,8 @@ CrPomodoroTimer >> remainingTime [
 { #category : #initialization }
 CrPomodoroTimer >> reset [
 
-	remainingDuration := duration 
+	remainingDuration := duration.
+	completed := false	
 ]
 
 { #category : #'start-stop' }
@@ -112,10 +127,6 @@ CrPomodoroTimer >> stop [
 CrPomodoroTimer >> tick [
 
 	remainingDuration := remainingDuration - 1 second.
-	tickAction ifNotNil: [ 
-		tickAction cull: self ].
-	
-	remainingDuration = 0 asDuration ifTrue: [ 
-		completedAction ifNotNil: [ 
-			completedAction cull: self ] ]
+	remainingDuration = 0 asDuration 
+		ifTrue: [ completed := true ]
 ]

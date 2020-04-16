@@ -64,6 +64,7 @@ CrApplication class >> validateSession [
 CrApplication >> emergencyShutdown [
 
 	self model shutDown.
+	self reset.
 	CrModelApplication reset
 ]
 

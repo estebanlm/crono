@@ -13,9 +13,8 @@ Trait {
 CrTPomodoroContainer classSide >> voyagePomodoroTasks [
 	<voyageDescription>
 	
-	^ VOToManyDescription new 
+	^ VOToOneDescription new 
 		attributeName: 'pomodoroTasks';
-		kindCollection: OrderedCollection;
 		accessor: (MAPluggableAccessor 
 			read: [ :aTask | aTask pomodoroTasks ]
 			write: [ :aTask :pomodoroTasks | 

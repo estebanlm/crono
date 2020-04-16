@@ -47,8 +47,7 @@ CrCronoTask class >> voyageDoneDate [
 		attributeName: 'doneDate';
 		accessor: (MAPluggableAccessor 
 			read: [ :aTask | aTask doneDate ifNotNil: #asString ]
-			write: [ :aTask :date | 
-				date ifNotNil: [ aTask setDoneDate: (ZTimestamp fromString: date) ] ]);
+			write: [ :aTask :date | aTask setDoneDateFromString: date ]);
 		yourself
 ]
 
@@ -153,6 +152,14 @@ CrCronoTask >> save [
 CrCronoTask >> setDoneDate: aZTimestamp [
 	
 	doneDate := aZTimestamp
+]
+
+{ #category : #private }
+CrCronoTask >> setDoneDateFromString: aString [ 
+	
+	aString isString ifFalse: [ ^ self ].
+	self setDoneDate: (aString ifNotNil: [ ZTimestamp fromString: aString ]).
+	
 ]
 
 { #category : #accessing }
