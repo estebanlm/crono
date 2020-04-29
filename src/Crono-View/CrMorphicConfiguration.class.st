@@ -1,10 +1,10 @@
 Class {
 	#name : #CrMorphicConfiguration,
-	#superclass : #SpApplicationConfiguration,
+	#superclass : #SpMorphicConfiguration,
 	#category : #'Crono-View-Application'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CrMorphicConfiguration class >> cronoStyleSheet [
 
 	^ SpStyleSTONReader fromString: '.application [ 
@@ -15,8 +15,7 @@ CrMorphicConfiguration class >> cronoStyleSheet [
 ]
 
 { #category : #configuring }
-CrMorphicConfiguration >> configure: anApplication [
+CrMorphicConfiguration >> styleSheet [
 
-	super configure: anApplication.
-	anApplication styleSheet: SpStyle defaultStyleSheet, self class cronoStyleSheet
+	^ super styleSheet, self class cronoStyleSheet
 ]
