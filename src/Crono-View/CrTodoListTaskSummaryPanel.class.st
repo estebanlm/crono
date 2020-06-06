@@ -6,34 +6,85 @@ Class {
 	#name : #CrTodoListTaskSummaryPanel,
 	#superclass : #SpPresenter,
 	#instVars : [
-		'todoList',
-		'doneCheckbox',
-		'nameLabel',
-		'listLabel',
 		'task',
-		'noteMarkerImage',
 		'memento',
-		'focusMarkerImage'
+		'todoList',
+		'doneCheckbox'
 	],
 	#category : #'Crono-View-Todo'
 }
-
-{ #category : #specs }
-CrTodoListTaskSummaryPanel class >> defaultSpec [
-
-	^ SpBoxLayout newHorizontal
-		add: #doneCheckbox expand: false;
-		add: #focusMarkerImage expand: false;
-		add: #nameLabel;
-		add: #listLabel expand: false;
-		addLast: #noteMarkerImage expand: false;
-		yourself
-]
 
 { #category : #accessing }
 CrTodoListTaskSummaryPanel >> activeTask [
 
 	^ self task
+]
+
+{ #category : #initialization }
+CrTodoListTaskSummaryPanel >> addFocusMarkTo: aLayout [
+	| mark |
+
+	self showsFocus ifFalse: [ ^ self ].
+	
+	aLayout add: (mark := self newImage) expand: false.
+	mark addStyle: 'mark'.
+	mark image: (task isFocused
+		ifTrue: [ self application iconNamed: #markFocus ]
+		ifFalse: [ nil ])
+]
+
+{ #category : #initialization }
+CrTodoListTaskSummaryPanel >> addLayoutTo: newLayout [
+	| nameLabel |
+	
+	newLayout add: (doneCheckbox := self newCheckBox) expand: false.
+	doneCheckbox state: task isDone.
+	doneCheckbox whenChangedDo: [ :state | self changeStatusTo: state ].	
+
+	self addFocusMarkTo: newLayout.
+	self addNoteMarkTo: newLayout.
+	self addPomodoroMarkTo: newLayout.
+
+	newLayout add: 	(nameLabel := self newLabel).
+	nameLabel label: task name.
+	
+	self addListTo: newLayout
+]
+
+{ #category : #initialization }
+CrTodoListTaskSummaryPanel >> addListTo: aLayout [
+	| listLabel |
+
+	self todoList isVirtual ifFalse: [ ^ self ].
+	 
+	aLayout addLast: (listLabel := self newLabel) expand: false.
+	listLabel label: task listName.
+	listLabel addStyle: 'listNameLabel'
+]
+
+{ #category : #initialization }
+CrTodoListTaskSummaryPanel >> addNoteMarkTo: aLayout [
+	| mark |
+
+	task hasNotes ifFalse: [ ^ self ].
+
+	aLayout add: (mark := self newImage) expand: false.
+	mark  addStyle: 'mark'.
+	mark image: (self application iconNamed: #markNote)
+	
+
+]
+
+{ #category : #initialization }
+CrTodoListTaskSummaryPanel >> addPomodoroMarkTo: aLayout [
+	| mark |
+
+	task hasPomodoroTasks ifFalse: [ ^ self ].
+
+	aLayout add: (mark := self newImage) expand: false.
+	mark  addStyle: 'mark'.
+	mark image: (self application iconNamed: #markPomodoro)	
+
 ]
 
 { #category : #actions }
@@ -46,13 +97,11 @@ CrTodoListTaskSummaryPanel >> changeStatusTo: state [
 
 { #category : #initialization }
 CrTodoListTaskSummaryPanel >> initializePresenters [
-
-	doneCheckbox := self newCheckBox 
-		whenChangedDo: [ :state | self changeStatusTo: state ].
-	focusMarkerImage := self newImage addStyle: 'markFocus'.
-	nameLabel := self newLabel.
-	listLabel := self newLabel addStyle: 'listNameLabel'.
-	noteMarkerImage := self newImage
+	| newLayout |
+	
+	newLayout := SpBoxLayout newHorizontal.
+	self addLayoutTo: newLayout.
+	self layout: newLayout
 ]
 
 { #category : #accessing }
@@ -63,7 +112,8 @@ CrTodoListTaskSummaryPanel >> refreshContentIfNeeded [
 	memento = newMemento ifTrue: [ ^ self ].
 
 	memento := newMemento.
-	self updatePresenter
+	self layout removeAll.
+	self addLayoutTo: self layout
 ]
 
 { #category : #initialization }
@@ -71,7 +121,7 @@ CrTodoListTaskSummaryPanel >> setModelBeforeInitialization: aTodoListAndTaskPair
 
 	todoList := aTodoListAndTaskPair todoList.
 	task := aTodoListAndTaskPair task.
-	memento := task takeMemento.
+	memento := task takeMemento
 ]
 
 { #category : #testing }
@@ -103,19 +153,4 @@ CrTodoListTaskSummaryPanel >> toggleState [
 	"this will fire the change event, which is where the actual change happens (in 
 	 #changeStatusTo:"
 	doneCheckbox state: doneCheckbox state not
-]
-
-{ #category : #initialization }
-CrTodoListTaskSummaryPanel >> updatePresenter [
-
-	doneCheckbox state: task isDone.
-	nameLabel label: task name.
-	self todoList isVirtual ifTrue: [ 
-		listLabel label: task listName ].
-	task hasNotes 
-		ifTrue: [ noteMarkerImage image: (self application iconNamed: #markNote) ]
-		ifFalse: [ noteMarkerImage image: (self application iconNamed: #blank) ].
-	(self showsFocus and: [ task isFocused ])
-		ifTrue: [ focusMarkerImage image: (self application iconNamed: #markFocus) ]
-		ifFalse: [ focusMarkerImage image: nil ] 
 ]

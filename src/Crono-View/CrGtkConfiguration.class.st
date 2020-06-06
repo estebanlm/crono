@@ -19,7 +19,7 @@ CrGtkConfiguration >> commonStyle [
 .titleShortcut { color: LightSlateGrey }
 .list { padding: 5px }
 .listNameLabel { color: LightSlateGrey; font-size: smaller; margin-right: 3px }
-.markFocus { margin-right: 3px }
+.mark { margin-right: 3px }
 .pomodoroSurpassedTime { color: red }
 '
 ]
