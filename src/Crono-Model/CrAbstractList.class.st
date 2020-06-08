@@ -8,6 +8,12 @@ Class {
 	#category : #'Crono-Model-Todo'
 }
 
+{ #category : #visiting }
+CrAbstractList >> accept: aVisitor [
+
+	^ aVisitor visitGenericList: self
+]
+
 { #category : #actions }
 CrAbstractList >> archiveCompletedTasks [
 
@@ -54,6 +60,12 @@ CrAbstractList >> isArchived [
 CrAbstractList >> isEditable [
 
 	^ self type isEditable
+]
+
+{ #category : #testing }
+CrAbstractList >> isUser [
+
+	^ false
 ]
 
 { #category : #testing }

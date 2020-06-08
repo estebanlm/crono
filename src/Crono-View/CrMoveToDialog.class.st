@@ -51,7 +51,8 @@ CrMoveToDialog >> initializeWindow: aWindowPresenter [
 { #category : #accessing }
 CrMoveToDialog >> lists [
 
-	^ CrTodoList activeLists copyWithout: self todoList
+	^ (CrTodoList activeLists copyWithout: self todoList) 
+		sorted: [ :a | a isUser ] ascending, [ :a | a name ] ascending
 ]
 
 { #category : #actions }

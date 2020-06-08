@@ -42,6 +42,12 @@ CrTodoListIndexSummaryPanel >> initializePresenters [
 
 ]
 
+{ #category : #testing }
+CrTodoListIndexSummaryPanel >> matchesTask: aTask [ 
+	
+	^ self todoList includesTask: aTask
+]
+
 { #category : #accessing }
 CrTodoListIndexSummaryPanel >> refresh [
 

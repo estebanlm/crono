@@ -26,6 +26,7 @@ CrTodoTaskMoveCommand class >> defaultShortcut [
 CrTodoTaskMoveCommand >> canBeExecuted [
 
 	^ self todoList isVirtual not
+		or: [ self todoList type = CrTodoType focus ]
 ]
 
 { #category : #executing }

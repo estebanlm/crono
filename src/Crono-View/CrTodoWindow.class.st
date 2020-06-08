@@ -156,7 +156,7 @@ CrTodoWindow >> initializeSubscribers [
 { #category : #initialization }
 CrTodoWindow >> initializeToolbar [
 	
-	toolbar := self newToolBar.
+	toolbar := self newToolbar.
 	toolbar beIcons.
 	toolbar fillWith: self toolbarActions
 ]

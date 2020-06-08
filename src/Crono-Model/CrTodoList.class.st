@@ -164,6 +164,12 @@ CrTodoList class >> voyageType [
 		yourself
 ]
 
+{ #category : #visiting }
+CrTodoList >> accept: aVisitor [
+
+	^ aVisitor visitTodoList: self
+]
+
 { #category : #accessing }
 CrTodoList >> addTask: aTask [
 
@@ -224,6 +230,12 @@ CrTodoList >> initializeType: aType [
 CrTodoList >> isArchived [
 
 	^ archived
+]
+
+{ #category : #testing }
+CrTodoList >> isUser [
+
+	^ self type = CrTodoType user
 ]
 
 { #category : #actions }

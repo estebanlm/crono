@@ -174,7 +174,7 @@ CrTodoTask >> focus: aBoolean [
 CrTodoTask >> fullName [
 
 	^ String streamContents: [ :stream |
-		stream << self owner name << ': ' << self name ]
+		stream << '[' << self owner name << '] ' << self name ]
 ]
 
 { #category : #testing }
@@ -276,9 +276,22 @@ CrTodoTask >> printChangeLogLines: aString on: stream [
 CrTodoTask >> printChangeLogOn: stream [ 
 	
 	self printChangeLogLines: ('* ', self fullName) on: stream.
-	self notes isEmptyOrNil ifTrue: [ ^ self ].  
-	stream newLine.
-	self printChangeLogLines: self notes on: stream
+	self notes isEmptyOrNil ifFalse: [  
+		stream newLine.
+		self printChangeLogLines: self notes on: stream ].
+	self hasPomodoroTasks ifTrue: [ 
+		stream newLine.
+		self printChangeLogPomodorosOn: stream ].
+]
+
+{ #category : #printing }
+CrTodoTask >> printChangeLogPomodorosOn: stream [
+	| size |
+	
+	size := self pomodoroTasks size.
+	stream << '    ' << ('{1} pomodoro{2}.' format: { 
+	 	size. 
+		size > 1 ifTrue: [ 's' ] ifFalse: [ '' ]})
 ]
 
 { #category : #printing }

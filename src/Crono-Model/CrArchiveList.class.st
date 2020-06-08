@@ -7,6 +7,12 @@ Class {
 	#category : #'Crono-Model-Todo'
 }
 
+{ #category : #visiting }
+CrArchiveList >> accept: aVisitor [
+
+	^ aVisitor visitArchiveList: self
+]
+
 { #category : #accessing }
 CrArchiveList >> summaryString [
 

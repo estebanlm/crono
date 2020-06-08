@@ -174,5 +174,8 @@ CrPomodoroWindow >> updatePresenter [
 { #category : #private }
 CrPomodoroWindow >> wasCompleted [
 
-	self withWindowDo: [ :each | each beep ]
+	self withWindowDo: [ :each | each beep ].
+	self application notificationCenter 
+		notify: (CrTaskChangedNotification newTask: pomodoroTask ownerTask).
+	
 ]

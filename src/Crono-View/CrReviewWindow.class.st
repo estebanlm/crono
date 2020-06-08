@@ -76,9 +76,9 @@ CrReviewWindow >> initializePresenters [
 		label: 'Review';
 		action: [ self review ];
 		yourself.
-	toolBar := self newToolBar
+	toolBar := self newToolbar
 		beIcons;
-		addItem: (SpToolBarButtonPresenter new
+		addItem: (SpToolbarButtonPresenter new
 			label: 'Copy';
 			icon: (self iconNamed: #smallCopy);
 			help: 'Copy to clipboard';
@@ -88,7 +88,7 @@ CrReviewWindow >> initializePresenters [
 			
 	reportText := self newText 
 		addStyle: 'cronoText';
-		enabled: false;
+		editable: false;
 		yourself
 ]
 

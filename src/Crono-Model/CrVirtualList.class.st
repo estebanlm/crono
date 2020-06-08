@@ -30,6 +30,12 @@ CrVirtualList class >> uniqueInstance [
 	^ uniqueInstance ifNil: [ uniqueInstance := super new ]
 ]
 
+{ #category : #visiting }
+CrVirtualList >> accept: aVisitor [
+
+	^ aVisitor visitVirtualList: self
+]
+
 { #category : #testing }
 CrVirtualList >> isVirtual [
 

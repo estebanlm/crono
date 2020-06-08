@@ -11,6 +11,12 @@ Class {
 	#category : #'Crono-Model-Todo'
 }
 
+{ #category : #visiting }
+CrSearchList >> accept: aVisitor [
+
+	^ aVisitor visitSearchList: self
+]
+
 { #category : #testing }
 CrSearchList >> hasElements [
 

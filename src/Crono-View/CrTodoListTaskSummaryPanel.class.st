@@ -42,13 +42,12 @@ CrTodoListTaskSummaryPanel >> addLayoutTo: newLayout [
 	doneCheckbox whenChangedDo: [ :state | self changeStatusTo: state ].	
 
 	self addFocusMarkTo: newLayout.
-	self addNoteMarkTo: newLayout.
-	self addPomodoroMarkTo: newLayout.
 
 	newLayout add: 	(nameLabel := self newLabel).
 	nameLabel label: task name.
 	
-	self addListTo: newLayout
+	self addNoteMarkTo: newLayout.
+	self addPomodoroMarkTo: newLayout
 ]
 
 { #category : #initialization }
@@ -90,6 +89,8 @@ CrTodoListTaskSummaryPanel >> addPomodoroMarkTo: aLayout [
 { #category : #actions }
 CrTodoListTaskSummaryPanel >> changeStatusTo: state [
 	
+	self activeTask ifNil: [ ^ self ].
+
 	(CrTodoTaskChangeDoneStatusCommand forContext: self)
 		state: state;
 		execute
@@ -102,6 +103,12 @@ CrTodoListTaskSummaryPanel >> initializePresenters [
 	newLayout := SpBoxLayout newHorizontal.
 	self addLayoutTo: newLayout.
 	self layout: newLayout
+]
+
+{ #category : #testing }
+CrTodoListTaskSummaryPanel >> matchesTask: aTask [
+
+	^ self task = aTask
 ]
 
 { #category : #accessing }

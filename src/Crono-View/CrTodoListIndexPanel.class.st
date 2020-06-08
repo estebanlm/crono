@@ -183,7 +183,8 @@ CrTodoListIndexPanel >> initializeSubscribers [
 
 	self application notificationCenter
 		subscribe: self to: CrListNotification;
-		subscribe: self to: CrSearchChangedNotification
+		subscribe: self to: CrSearchChangedNotification;
+		subscribe: self to: CrTaskChangedNotification
 ]
 
 { #category : #'private factory' }
@@ -212,6 +213,16 @@ CrTodoListIndexPanel >> noteListChanged: aNotification [
 CrTodoListIndexPanel >> noteSearchChanged: aNotification [
 	
 	self toggleSearchPanel
+]
+
+{ #category : #'notification handling' }
+CrTodoListIndexPanel >> noteTaskChanged: aNotification [
+	"Someone changed this list from another place"
+
+	list presenters 
+		select: [ :each | each matchesTask: aNotification task ]
+		thenDo: [ :aPresenter | aPresenter refresh ].
+	
 ]
 
 { #category : #initialization }

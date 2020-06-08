@@ -182,24 +182,16 @@ CrTodoListPanel >> inputModelPort [
 { #category : #'private factory' }
 CrTodoListPanel >> newTaskPresenters [
 	
-	^ self todoList tasks
-		collect: [ :each | 
-			self 
-				instantiate: CrTodoListTaskSummaryPanel 
-				on: (CrTodoListAndTaskPair
-					newList: self todoList 
-					task: each) ]
+	^ self newTaskPresentersFor: self todoList tasks
 ]
 
 { #category : #'private factory' }
 CrTodoListPanel >> newTaskPresentersFor: aCollection [
 	
-	^ aCollection collect: [ :each | 
-		self 
-			instantiate: CrTodoListTaskSummaryPanel 
-			on: (CrTodoListAndTaskPair
-				newList: self todoList 
-				task: each) ]
+	^ CrTaskPresenterCollector new
+		owner: self;
+		tasks: aCollection;
+		visit: self todoList
 ]
 
 { #category : #'notification handling' }
@@ -222,14 +214,15 @@ CrTodoListPanel >> noteTaskAdded: aNotification [
 { #category : #'notification handling' }
 CrTodoListPanel >> noteTaskChanged: aNotification [
 	"Someone changed this list from another place"
+	| matching |
 
-	list presenters
-		detect: [ :each | each task = aNotification task ]
-		ifFound: [ :aPresenter | 
-			aPresenter refreshContentIfNeeded.
-			statusBar refresh ].
-
+	matching := list presenters 
+		select: [ :each | each matchesTask: aNotification task ].
+	matching ifEmpty: [ ^ self ].
 	
+	matching 
+		do: [ :aPresenter | aPresenter refreshContentIfNeeded ].
+	statusBar refresh
 ]
 
 { #category : #'notification handling' }
@@ -253,7 +246,9 @@ CrTodoListPanel >> refresh [
 CrTodoListPanel >> selectItem: aListItem [
 
 	list items 
-		detect: [ :each | each task = aListItem ]
+		detect: [ :each | 
+			each isSelectable 
+				and: [ each matchesTask: aListItem ] ]
 		ifFound: [ :each | list selectItem: each ]
 		ifNone: [ list unselectAll ]
 ]

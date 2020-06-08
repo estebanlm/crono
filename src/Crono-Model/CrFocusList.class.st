@@ -10,11 +10,25 @@ Class {
 	#category : #'Crono-Model-Todo'
 }
 
+{ #category : #visiting }
+CrFocusList >> accept: aVisitor [
+
+	^ aVisitor visitFocusList: self
+]
+
 { #category : #accessing }
 CrFocusList >> basicTasks [
 
 	^ CrTodoTask selectMany: [ :each | each focused = true ]	
 
+]
+
+{ #category : #actions }
+CrFocusList >> moveTask: aTask to: aTodoList [
+
+	aTodoList 
+		receiveTask: aTask 
+		from: aTask owner
 ]
 
 { #category : #'notification handling' }
