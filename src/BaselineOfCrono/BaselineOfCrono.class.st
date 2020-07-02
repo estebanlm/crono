@@ -15,7 +15,7 @@ BaselineOfCrono >> baseline: spec [
 		self persistenceQuery: spec.
 		self marsGtk: spec.
 		self objCBridge: spec.
-		self macPack: spec.
+		"self macPack: spec."
 
 		spec 
 			package: 'Crono-Model' with: [ 
@@ -45,7 +45,7 @@ BaselineOfCrono >> marsGtk: spec [
 
 	spec
 		baseline: 'Mars'
-		with: [ spec repository: 'github://pharos-spec/mars' ]
+		with: [ spec repository: 'github://pharo-spec/mars-gtk' ]
 ]
 
 { #category : #'external projects' }
