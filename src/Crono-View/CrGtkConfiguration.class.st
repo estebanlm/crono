@@ -123,7 +123,7 @@ CrGtkConfiguration >> unixStyle [
 { #category : #accessing }
 CrGtkConfiguration >> unixThemeName [
 
-	^ 'Adwaita'
+	^ nil
 ]
 
 { #category : #'accessing style' }

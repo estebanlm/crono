@@ -29,7 +29,7 @@ CrGtkDarkConfiguration >> themeIconsDirectory [
 { #category : #accessing }
 CrGtkDarkConfiguration >> unixThemeName [
 
-	^ 'Adwaita-dark'
+	^ nil
 ]
 
 { #category : #accessing }
