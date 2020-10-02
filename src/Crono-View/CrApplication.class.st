@@ -31,12 +31,6 @@ CrApplication class >> current [
 ]
 
 { #category : #accessing }
-CrApplication class >> repositoryName [ 
-
-	^ 'todo.db'
-]
-
-{ #category : #accessing }
 CrApplication class >> reset [
 	<script>
 
