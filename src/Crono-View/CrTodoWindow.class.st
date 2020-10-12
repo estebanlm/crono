@@ -196,7 +196,7 @@ CrTodoWindow >> shownArchived [
 { #category : #initialization }
 CrTodoWindow >> title [ 
 
-	^ 'Lists'
+	^ CrApplication applicationName
 ]
 
 { #category : #private }

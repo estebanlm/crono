@@ -35,7 +35,7 @@ CrApplicationStarter >> start [
 
 	mainWindow := CrTodoMainWindow new. 
 	self visit.
-	mainWindow openWithSpec
+	^ mainWindow openWithSpec
 ]
 
 { #category : #visiting }

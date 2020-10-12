@@ -20,7 +20,7 @@ Class {
 { #category : #accessing }
 CrApplication class >> applicationName [
 
-	^ 'crono'
+	^ 'Nevermind Tasks'
 ]
 
 { #category : #'instance creation' }
@@ -78,7 +78,6 @@ CrApplication >> iconProvider [
 { #category : #initialization }
 CrApplication >> initialize [
 
-	standalone := false.
 	super initialize.
 	self initializeBackend.
 	self initializeModel.
@@ -87,7 +86,14 @@ CrApplication >> initialize [
 
 { #category : #initialization }
 CrApplication >> initializeBackend [
-	
+	| gtk |
+
+	"Ensure the name of the application"
+	self isStandalone ifTrue: [ 
+		gtk := GtkApplication new initGtk3.
+		GLibLibrary uniqueInstance gSetPrgName: self class applicationName.
+		gtk run ].
+
 	self settings isDarkTheme
 		ifTrue: [ self useGtkDark ]
 		ifFalse: [ self useGtk ]
@@ -109,7 +115,7 @@ CrApplication >> initializeVirtualLists [
 { #category : #testing }
 CrApplication >> isStandalone [
 
-	^ standalone
+	^ standalone ifNil: [ standalone := false ]
 ]
 
 { #category : #accessing }
@@ -128,7 +134,7 @@ CrApplication >> notificationCenter [
 { #category : #initialization }
 CrApplication >> prepareAsStandaloneApplication [
 	
-	standalone := true
+	standalone := true.
 ]
 
 { #category : #accessing }
@@ -152,12 +158,15 @@ CrApplication >> settings [
 
 { #category : #running }
 CrApplication >> start [
+	| window |
 
 	self isStandalone ifFalse: [ ^ self ].
-
-	CrApplicationStarter new 
+	window := CrApplicationStarter new 
 		application: self;
-		start
+		start.
+	window whenClosedDo: [ 
+		self emergencyShutdown.
+		Smalltalk exitSuccess ]
 ]
 
 { #category : #initialization }
