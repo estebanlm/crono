@@ -39,9 +39,10 @@ CrTodoTaskMoveCommand >> execute [
 		todoList: self todoList;
 		openDialogWithSpecParent: context window.
 
-	self application notificationCenter 
-		notify: (CrListChangedNotification newList: self todoList);
-		notify: (CrListChangedNotification newList: dialog presenter selectedItem).	
+	self notificationCenter notify: (CrListChangedNotification newList: self todoList).
+	dialog presenter selectedItem 
+		ifNotNil: [ :aList | 
+			self notificationCenter notify: (CrListChangedNotification newList: aList) ].	
 	task isFocused ifTrue: [ 
 		self application notificationCenter 
 			notify: (CrVirtualListTaskChangedNotification 
