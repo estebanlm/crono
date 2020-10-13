@@ -18,7 +18,7 @@ CrTodoReviewCronoCommand class >> defaultDescription [
 { #category : #default }
 CrTodoReviewCronoCommand class >> defaultIconName [
 
-	^ #reviewDone
+	^ 'document-preview'
 ]
 
 { #category : #default }

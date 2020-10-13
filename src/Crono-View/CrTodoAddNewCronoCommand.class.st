@@ -16,7 +16,7 @@ CrTodoAddNewCronoCommand class >> defaultDescription [
 { #category : #default }
 CrTodoAddNewCronoCommand class >> defaultIconName [
 
-	^ #done
+	^ 'check-filled'
 ]
 
 { #category : #default }

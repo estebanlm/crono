@@ -63,10 +63,12 @@ CrApplication >> emergencyShutdown [
 ]
 
 { #category : #accessing }
-CrApplication >> iconNamed: aSymbol [
+CrApplication >> iconNamed: aSymbolOrString [
 
-	aSymbol ifNil: [ ^ nil ].
-	^ self iconProvider iconNamed: aSymbol
+	aSymbolOrString ifNil: [ ^ nil ].
+	aSymbolOrString isSymbol ifFalse: [ 
+		^ GtkRunLoop defer: [ GtkImage newIconForMenuNamed: aSymbolOrString ] ].
+	^ self iconProvider iconNamed: aSymbolOrString
 ]
 
 { #category : #accessing }

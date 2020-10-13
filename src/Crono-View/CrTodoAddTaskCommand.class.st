@@ -13,7 +13,7 @@ CrTodoAddTaskCommand class >> defaultDescription [
 { #category : #default }
 CrTodoAddTaskCommand class >> defaultIconName [
 
-	^ #add
+	^ 'gtk-add'
 ]
 
 { #category : #default }

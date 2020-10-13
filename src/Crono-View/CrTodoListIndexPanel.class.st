@@ -166,12 +166,12 @@ CrTodoListIndexPanel >> initializePresenters [
 	actionBar := self newActionBar
 		add: (self newButton 
 			"label: 'New List';"
-			icon: (self application iconNamed: #actionAdd);
+			icon: (self application iconNamed: 'gtk-add');
 			help: 'Add a new List';
 			action: [ self addList ];
 			yourself);
 		addLast: ((showArchivedButton := self newToggleButton)
-			icon: (self application iconNamed: #actionShow);
+			icon: (self application iconNamed: 'show-hidden');
 			help: 'Show archived lists';
 			whenChangedDo: [ self doToggleShownArchived ];
 			yourself);

@@ -80,7 +80,7 @@ CrReviewWindow >> initializePresenters [
 		beIcons;
 		addItem: (SpToolbarButtonPresenter new
 			label: 'Copy';
-			icon: (self iconNamed: #smallCopy);
+			icon: (self application iconNamed: 'gtk-copy');
 			help: 'Copy to clipboard';
 			action: [ self copyToClipboard ];
 			yourself);

@@ -13,7 +13,7 @@ CrTodoTaskStartPomodoroCommand class >> defaultDescription [
 { #category : #default }
 CrTodoTaskStartPomodoroCommand class >> defaultIconName [
 
-	^ #pomodoro
+	^ 'pomodoro-indicator'
 ]
 
 { #category : #default }
