@@ -13,7 +13,7 @@ BaselineOfCrono >> baseline: spec [
 		self ztimestamp: spec.
 		self voyage: spec.
 		self persistenceQuery: spec.
-		self marsGtk: spec.
+		self specGtk: spec.
 		self objCBridge: spec.
 		"self macPack: spec."
 
@@ -41,14 +41,6 @@ BaselineOfCrono >> macPack: spec [
 ]
 
 { #category : #'external projects' }
-BaselineOfCrono >> marsGtk: spec [
-
-	spec
-		baseline: 'Mars'
-		with: [ spec repository: 'github://pharo-spec/mars-gtk' ]
-]
-
-{ #category : #'external projects' }
 BaselineOfCrono >> objCBridge: spec [
 
 	spec
@@ -65,6 +57,14 @@ BaselineOfCrono >> persistenceQuery: spec [
 			spec 
 				loads: #('ejdb');
 				repository: 'github://pharo-nosql/PersistenceQuery' ]
+]
+
+{ #category : #'external projects' }
+BaselineOfCrono >> specGtk: spec [
+
+	spec
+		baseline: 'SpecGtk'
+		with: [ spec repository: 'github://pharo-spec/Spec-Gtk' ]
 ]
 
 { #category : #'external projects' }
