@@ -136,7 +136,8 @@ CrApplication >> notificationCenter [
 { #category : #initialization }
 CrApplication >> prepareAsStandaloneApplication [
 	
-	standalone := true.
+	MorphicUIManager uiProcess ifNotNil: #terminate.
+	standalone := true
 ]
 
 { #category : #accessing }
