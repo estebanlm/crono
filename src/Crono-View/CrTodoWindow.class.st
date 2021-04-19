@@ -34,7 +34,7 @@ CrTodoWindow class >> defaultSpec [
 				yourself)
 			expand: false; 
 		add: (SpPanedLayout newHorizontal
-			position: 30 percent;
+			positionOfSlider: 30 percent;
 			add: #indexPanel;
 			add: #listPanel;
 			yourself);
@@ -77,6 +77,16 @@ CrTodoWindow >> allKeyBindingActions [
 CrTodoWindow >> configurationClass [
 
 	^ CrTodoWindowConfiguration
+]
+
+{ #category : #actions }
+CrTodoWindow >> doOpenPlayground [
+	| app |
+	
+	app := self application 
+		propertyAt: #pharo
+		ifAbsentPut: [ StPharoApplication new useGtk ].
+	(StPlayground newApplication: app) openWithSpec
 ]
 
 { #category : #initialization }
@@ -206,6 +216,7 @@ CrTodoWindow >> toolbarActions [
 		register: (CrTodoAddNewCronoCommand forSpecContext: self);
 		register: (CrTodoAddTaskCommand forSpecContext: self);
 		register: (CrTodoReviewCronoCommand forSpecContext: self);
+		register: (CrOpenPlaygroundCommand forSpecContext: self);
 		yourself
 ]
 

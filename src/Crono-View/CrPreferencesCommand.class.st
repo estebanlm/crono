@@ -16,7 +16,7 @@ CrPreferencesCommand class >> defaultName [
 { #category : #default }
 CrPreferencesCommand class >> defaultShortcut [
 
-	^ $, platformMeta
+	^ (KeyboardKey named: 'COMMA') asKeyCombination platformMeta
 ]
 
 { #category : #executing }
