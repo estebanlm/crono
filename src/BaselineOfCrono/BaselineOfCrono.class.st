@@ -15,12 +15,14 @@ BaselineOfCrono >> baseline: spec [
 		self persistenceQuery: spec.
 		self specGtk: spec.
 		self objCBridge: spec.
+		self stargate: spec.
 		"self macPack: spec."
 
 		spec 
 			package: 'Crono-Model' with: [ 
 				spec requires: #('ZTimestamp' 'Voyage' 'PersistenceQuery') ];
-			package: 'Crono-View';
+			package: 'Crono-View' with: [ 
+				spec requires: #('Stargate') ];
 			package: 'Crono-Tests' ]
 ]
 
@@ -65,6 +67,14 @@ BaselineOfCrono >> specGtk: spec [
 	spec
 		baseline: 'SpecGtk'
 		with: [ spec repository: 'github://pharo-spec/Spec-Gtk' ]
+]
+
+{ #category : #'external projects' }
+BaselineOfCrono >> stargate: spec [
+
+	spec
+		baseline: 'Stargate'
+		with: [ spec repository: 'github://estebanlm/stargate' ]
 ]
 
 { #category : #'external projects' }
