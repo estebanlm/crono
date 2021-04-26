@@ -35,10 +35,10 @@ CrMoveToDialog >> initializeDialogWindow: aDialogWindowPresenter [
 CrMoveToDialog >> initializePresenter [
 
 	list := self newList
-		display: [ :each | each name ];
-		icons: [ :each | each iconOn: self application ];
-		whenActivatedDo: [ self moveTask ];
-		yourself
+		        display: [ :each | each name ];
+		        displayIcon: [ :each | each iconOn: self application ];
+		        whenActivatedDo: [ self moveTask ];
+		        yourself
 ]
 
 { #category : #initialization }
