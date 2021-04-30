@@ -162,18 +162,20 @@ CrApplication >> settings [
 CrApplication >> start [
 	| window |
 
-	self isStandalone ifFalse: [ ^ self ].
 	window := CrApplicationStarter new 
 		application: self;
 		start.
+	self isStandalone ifFalse: [ ^ self ].
+
 	window whenClosedDo: [ 
 		self emergencyShutdown.
 		Smalltalk exitSuccess ].
-	
+	"Kill unnecessary process that may be still there"
 	MorphicUIManager uiProcess ifNotNil: #terminate.
 	ProcessBrowser new processList
 		detect: [ :each | each name = 'SDL2 Event loop' ]
-		ifFound: [ :aProcess | aProcess terminate ]
+		ifFound: [ :aProcess | aProcess terminate ]	
+
 ]
 
 { #category : #initialization }

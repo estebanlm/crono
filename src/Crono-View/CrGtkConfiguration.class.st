@@ -53,7 +53,7 @@ CrGtkConfiguration >> configureWindows: anApplication [
 { #category : #configuring }
 CrGtkConfiguration >> ensureAppearance: aName [
 
-	MpSettings ensureAppearance: aName
+	"MpSettings ensureAppearance: aName"
 ]
 
 { #category : #accessing }
