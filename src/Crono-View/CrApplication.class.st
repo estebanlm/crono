@@ -136,7 +136,6 @@ CrApplication >> notificationCenter [
 { #category : #initialization }
 CrApplication >> prepareAsStandaloneApplication [
 	
-	MorphicUIManager uiProcess ifNotNil: #terminate.
 	standalone := true
 ]
 
@@ -169,7 +168,12 @@ CrApplication >> start [
 		start.
 	window whenClosedDo: [ 
 		self emergencyShutdown.
-		Smalltalk exitSuccess ]
+		Smalltalk exitSuccess ].
+	
+	MorphicUIManager uiProcess ifNotNil: #terminate.
+	ProcessBrowser new processList
+		detect: [ :each | each name = 'SDL2 Event loop' ]
+		ifFound: [ :aProcess | aProcess terminate ]
 ]
 
 { #category : #initialization }
