@@ -40,13 +40,13 @@ CrReviewWindow class >> defaultSpec [
 CrReviewWindow >> configuration [
 
 	^ configuration ifNil: [ 
-		configuration := CrReviewWindowConfiguration readFromFileSystem ]
+		configuration := self configurationClass readFromFileSystem ]
 ]
 
 { #category : #private }
 CrReviewWindow >> configurationClass [
 
-	^ CrReviewWindowConfiguration
+	^ Smalltalk at: #CrReviewWindowConfiguration
 ]
 
 { #category : #actions }

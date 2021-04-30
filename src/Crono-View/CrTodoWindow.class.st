@@ -76,7 +76,7 @@ CrTodoWindow >> allKeyBindingActions [
 { #category : #private }
 CrTodoWindow >> configurationClass [
 
-	^ CrTodoWindowConfiguration
+	^ Smalltalk globals at: #CrTodoWindowConfiguration
 ]
 
 { #category : #actions }
